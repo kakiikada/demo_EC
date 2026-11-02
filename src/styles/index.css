@@ -32,8 +32,12 @@
   --space-ss: 0.125rem;
   --space-s: 0.5rem;
   --space-m: 1rem;
-  --space-l: 2rem;
-  --space-ll: 5rem;
+  --space-l: 5rem;
+  --space-ll: 10rem;
+  @media screen and (max-width: 768px) {
+    --space-s: 0.25rem;
+    --space-m: 0.5rem;
+  }
 
   --transition: .3s;
   --bg-template: no-repeat center/75% ;
@@ -49,6 +53,9 @@ body {
   position: relative;
   font-family: "M PLUS Rounded 1c", sans-serif;
   background-color: var(--color-base);
+    @media screen and (max-width: 768px) {
+      font-size: 12px;
+  }
 }
 .wrapper {
   width: 1400px;

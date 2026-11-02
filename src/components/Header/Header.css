@@ -6,8 +6,10 @@
     width: 100%;
     position: fixed;
     background-color: var(--color-base);
-    /* background-image: var(--color-gradient); */
     color: var(--color-bg);
+    @media screen and (max-width: 768px) {
+        height: 3rem;
+    }
 }
 .header-layout {
     width: 100%;
@@ -16,10 +18,16 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    @media screen and (max-width: 768px) {
+        height: 3rem;
+    }
 }
 .header-layout_left {
     img {
         height: 3rem;
+        @media screen and (max-width: 768px) {
+            height: 2rem;
+        }
     }
 }
 .header-nav {
@@ -36,7 +44,7 @@
         width: 100svw;
         height: 100svh;
         text-align: center;
-        background-image: var(--color-gradient);
+        background-color: var(--color-base);
         transform: translateX(110svw);
         transition: var(--transition);
         &.js-active {
@@ -67,7 +75,7 @@
             li:first-child {
                 @media screen and (max-width: 768px) {
                     width: 100svw;
-                    padding: 0 2rem;
+                    padding: 0 4rem;
                 }
             }
         }
@@ -165,8 +173,8 @@
                 color: var(--color-bg);
                 display: block;
                 text-align: center;
-                line-height: 2rem;
-                height: 2rem;
+                line-height: 4rem;
+                height: 4rem;
             }
             &:first-child {
                 background-color: var(--color-color1);
@@ -193,7 +201,7 @@
         display: block;
     }
     .hamburgerButton {
-        top: 1rem;
+        top: 0.5rem;
         right: 1rem;
         width: 1.875rem;
         z-index: 10002;
@@ -207,12 +215,12 @@
             transition: .3s;
             border-radius: 0.125rem;
             position: absolute;
-            background-color: #fff;
+            background-color: var(--color-accent);
         }
         .hamburgerButton_navIcon1{
             transform: rotate(0deg);
             animation: menuIcon-out .3s ease-out forwards;
-            box-shadow: 0 0.625rem 0 #fff, 0 -0.625rem 0 #fff;
+            box-shadow: 0 0.625rem 0 var(--color-accent), 0 -0.625rem 0 var(--color-accent);
 
         }
         &.js-active .hamburgerButton_navIcon1 {
@@ -229,28 +237,28 @@
 @keyframes menuIcon-in {
     0% {
         transform: rotate(0deg);
-        box-shadow: 0 0.625rem 0 #fff, 0 -0.625rem 0 #fff;
+        box-shadow: 0 0.625rem 0 var(--color-accent), 0 -0.625rem 0 var(--color-accent);
     }
     50% {
         transform: rotate(0deg);
-        box-shadow: 0 0 0 #fff, 0 0 0 #fff;
+        box-shadow: 0 0 0 var(--color-accent), 0 0 0 var(--color-accent);
     }
     100% {
         transform: rotate(45deg);
-        box-shadow: 0 0 0 #fff, 0 0 0 #fff;
+        box-shadow: 0 0 0 var(--color-accent), 0 0 0 var(--color-accent);
     }
 }
 @keyframes menuIcon-out {
     0% {
         transform: rotate(45deg);
-        box-shadow: 0 0 0 #fff, 0 0 0 #fff;
+        box-shadow: 0 0 0 var(--color-accent), 0 0 0 var(--color-accent);
     }
     50% {
         transform: rotate(0deg);
-        box-shadow: 0 0 0 #fff, 0 0 0 #fff;
+        box-shadow: 0 0 0 var(--color-accent), 0 0 0 var(--color-accent);
     }
     100% {
         transform: rotate(0deg);
-        box-shadow: 0 0.625rem 0 #fff, 0 -0.625rem 0 #fff;
+        box-shadow: 0 0.625rem 0 var(--color-accent), 0 -0.625rem 0 var(--color-accent);
     }
 }

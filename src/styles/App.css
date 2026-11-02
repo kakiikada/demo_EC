@@ -1,0 +1,146 @@
+/* home */
+.home {
+    .catch {
+        margin-top: 8rem;
+        position: relative;
+        background-color: #888;
+        width: 100%;
+        display: block;
+        @media screen and (max-width: 768px) {
+            margin-top: 3rem;
+        }
+        .catch_scroll {
+            position: absolute;
+            font-size: 1.25rem;
+            left: calc(50% - 110px);
+            bottom: 5rem;
+            text-align: center;
+            color: var(--color-bg);
+            width: 220px;
+            &:before {
+                content: '';
+                position: absolute;
+                left: calc(50% - 3px);
+                top: 4.5rem;
+                display: block;
+                height: 0.5rem;
+                width: 7px;
+                border-top: 0.5rem solid var(--color-bg);
+                border-right: 3.5px solid rgba(0,0,0,0);
+                border-left: 3.5px solid rgba(0,0,0,0);
+            }
+            &:after {
+                content: '';
+                position: absolute;
+                left: 50%;
+                top: 2rem;
+                display: block;
+                height: 3rem;
+                width: 1px;
+                background-color: var(--color-bg);
+            }
+        }
+        img {
+            height: calc(100svh - 12rem);
+            width: 100%;
+            object-fit: cover;
+            pointer-events: none;
+        }
+    }
+    .newItem {
+        padding: var(--space-ll) var(--space-m);
+        .newItem_list {
+            margin-top: var(--space-l);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 0.5rem 0;
+            li {
+                width: calc(25% - 1rem);
+            }
+        }
+    }
+    .category {
+        .category_list {
+            display: flex;
+            flex-wrap: wrap;
+            li {
+                width: 33.3%;
+            }
+            .category_list_title {
+                position: relative;
+                width: 100%;
+                aspect-ratio: 2 / 1;
+                .category_list_title_text {
+                    position: absolute;
+                    inset: 0;
+                    font-size: 3rem;
+                    color: var(--color-bg);
+                    font-weight: bold;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background-color: rgba(83, 76, 75, 1);
+                }
+            }
+        }
+        .categoryCard {
+            display: flex;
+            img {
+                width: 50%;
+                 aspect-ratio: 1 / 1;
+                 object-fit: cover;
+                 opacity: 0.75;
+                
+            }
+            .categoryCard_text {
+                width: 50%;
+                padding: var(--space-s);
+                color: var(--color-bg);
+            }
+            &.tableware {
+                background-color: var(--color-color1);
+            }
+            &.stationery {
+                background-color: var(--color-color2);
+            }
+            &.lighting {
+                background-color: var(--color-color3);
+            }
+            &.fabrics {
+                background-color: var(--color-color4);
+            }
+            &.plants {
+                background-color: var(--color-color5);
+            }
+        }
+    }
+    /* ブランドコンセプト・pickup・ランキングなど余裕があれば追加 */
+
+    /* 共有の可能性のあるアイテム */
+    .title {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        .title_text {
+            font-size: 3rem;
+        }
+        .title_btn {
+            
+        }
+    }
+    .itemCard {
+        img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+        }
+        .itemCard_text {
+            padding: var(--space-s) 0;
+            .itemCard_text_price {
+                font-size: 0.75rem;
+                margin-top: var(--space-ss);
+            }
+        }
+    }
+}

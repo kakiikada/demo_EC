@@ -21,11 +21,11 @@ export default function Navigation({
         </ul>
         <div className="header-nav_category">
           <ul>
-            <li><a href="">カテゴリ１</a></li>
-            <li><a href="">カテゴリ2</a></li>
-            <li><a href="">カテゴリ3</a></li>
-            <li><a href="">カテゴリ4</a></li>
-            <li><a href="">カテゴリ5</a></li>
+            <li><a href="">Tableware/食器</a></li>
+            <li><a href="">Stationery/文具</a></li>
+            <li><a href="">Lighting/照明</a></li>
+            <li><a href="">Fabrics/インテリア雑貨</a></li>
+            <li><a href="">Plants/植物小物</a></li>
           </ul>
         </div>
       </nav>
