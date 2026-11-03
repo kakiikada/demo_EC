@@ -21,6 +21,9 @@
   --color-main-light: var(--color-color1-light);
   --color-accent: var(--color-color2);
   --color-accent-light: var(--color-color2-light);
+  --color-safety: var(--color-color3);
+  --color-favo: var(--color-color5);
+  --color-favo-light: var(--color-color5-light);
 
   --shadow:
     0.25rem 0.25rem 0.25rem 0.25rem#534C4B;
@@ -32,11 +35,15 @@
   --space-ss: 0.125rem;
   --space-s: 0.5rem;
   --space-m: 1rem;
+  --space-lm: 3rem;
   --space-l: 5rem;
   --space-ll: 10rem;
   @media screen and (max-width: 768px) {
     --space-s: 0.25rem;
     --space-m: 0.5rem;
+    --space-lm: 1rem;
+    --space-l: 3rem;
+    --space-ll: 5rem;
   }
 
   --transition: .3s;
@@ -61,6 +68,30 @@ body {
   width: 1400px;
   max-width: 100%;
   margin: 0 auto;
+}
+.quantityBtn {
+  display: flex;
+  button {
+      color: var(--color-bg);
+      font-size: 1.5rem;
+      width: 1.5rem;
+      text-align: center;
+      padding: var(--space-ss);
+      background-color: var(--color-main);
+      &:first-child {
+        border-radius: 0.25rem 0 0 0.25rem;
+
+      }
+      &:last-child {
+        border-radius: 0 0.25rem 0.25rem 0;
+      }
+  }
+  
+  input {
+    padding: var(--space-s);
+    background-color: var(--color-bg);
+    width: 5rem;
+  }
 }
 /* @media (max-width: 1400x) {
   font-size: 16px;

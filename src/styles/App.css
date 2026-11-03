@@ -1,14 +1,17 @@
 /* home */
+main {
+    margin-top: 8rem;
+    min-height: calc(100svh - 10rem);
+    @media screen and (max-width: 768px) {
+        margin-top: 3rem;
+    }
+}
 .home {
     .catch {
-        margin-top: 8rem;
         position: relative;
         background-color: #888;
         width: 100%;
         display: block;
-        @media screen and (max-width: 768px) {
-            margin-top: 3rem;
-        }
         .catch_scroll {
             position: absolute;
             font-size: 1.25rem;
@@ -86,11 +89,12 @@
         }
         .categoryCard {
             display: flex;
+            flex-wrap: wrap;
             img {
                 width: 50%;
-                 aspect-ratio: 1 / 1;
-                 object-fit: cover;
-                 opacity: 0.75;
+                aspect-ratio: 1 / 1;
+                object-fit: cover;
+                opacity: 0.75;
                 
             }
             .categoryCard_text {
@@ -116,31 +120,120 @@
         }
     }
     /* ブランドコンセプト・pickup・ランキングなど余裕があれば追加 */
-
-    /* 共有の可能性のあるアイテム */
-    .title {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-        .title_text {
-            font-size: 3rem;
+}
+.ProductDetail {
+    display: flex;
+    flex-wrap: wrap;
+    .ProductDetail_img {
+        width: 40%;
+        @media screen and (max-width: 1040px) {
+            width: 100%;
         }
-        .title_btn {
-            
-        }
-    }
-    .itemCard {
         img {
             width: 100%;
             aspect-ratio: 1 / 1;
             object-fit: cover;
-        }
-        .itemCard_text {
-            padding: var(--space-s) 0;
-            .itemCard_text_price {
-                font-size: 0.75rem;
-                margin-top: var(--space-ss);
+            @media screen and (max-width: 1040px) {
+                display: block;
+                margin: 0 auto;
+                max-width: 25rem;
             }
+        }
+    }
+    .ProductDetail_text {
+        width: 60%;
+        padding: var(--space-l);
+        @media screen and (max-width: 1040px) {
+            width: 100%;
+            padding: var(--space-lm);
+        }
+        .ProductDetail_text_title {
+            font-size: 2rem;
+            @media screen and (max-width: 1040px) {
+                font-size: 1.5rem;
+            }
+        }
+        .ProductDetail_text_data {
+            margin-top: var(--space-lm);
+            li + li {
+                margin-top: var(--space-m);
+            }
+        }
+    }
+    .ProductDetail_form {
+        margin-top: var(--space-lm);
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        .ProductDetail_form_btnBox {
+            width: 100%;
+            margin-top: var(--space-m);
+            display: flex;
+            gap: 1rem;
+            button {
+                color: var(--color-bg);
+                margin-top: var(--space-lm);
+                padding: var(--space-m) var(--space-lm);
+                background-color: var(--color-accent);
+                border-radius: 15rem;
+                transition: var(--transition);
+                @media screen and (max-width: 1040px) {
+                    padding: var(--space-m) var(--space-lm);
+                }
+                &:hover {
+                        background-color: var(--color-accent-light);
+                    }
+                &.ProductDetail_form_btnBox-favo {
+                    background-color: var(--color-favo);
+                    &:hover {
+                        background-color: var(--color-favo-light);
+                    }
+                }
+            }
+        }
+    }
+    .ProductDetail_price {
+        font-size: 1.5rem;
+        small {font-size: 1rem;}
+        @media screen and (max-width: 768px) {
+            font-size: 1.25rem;
+            & small {font-size: 0.75rem;}
+        }
+    }
+    .ProductDetail_icon {
+        span {
+            color: var(--color-safety);
+            font-weight: bold;
+            padding: var(--space-ss) var(--space-s);
+            background-color: var(--color-bg);
+            border: 1px solid var(--color-safety);
+            border-radius: 0.25rem;
+        }
+    }
+}
+
+/* 共有の可能性のあるアイテム */
+/* home */
+.title {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    .title_text {
+        font-size: 3rem;
+    }
+    .title_btn {}
+}
+.itemCard {
+    img {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+    }
+    .itemCard_text {
+        padding: var(--space-s) 0;
+        .itemCard_text_price {
+            font-size: 0.75rem;
+            margin-top: var(--space-ss);
         }
     }
 }

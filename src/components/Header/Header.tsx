@@ -31,12 +31,11 @@ export default function Header() {
             />
           </div>
           )} */}
-          <div className="header-layout_right">
-            <Navigation
-              isOpen={isOpen}
-              onClose={() => setIsOpen(false)}
-            />
-          </div>
+          
+          <Navigation
+            isOpen={isOpen}
+            onClose={() => setIsOpen(false)}
+          />
           <div className="header-icon">
             <HamburgerButton
               isOpen={isOpen}
