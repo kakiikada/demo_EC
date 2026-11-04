@@ -1,10 +1,11 @@
 :root {
   --color-bg: #FFF;
+  --color-gray: #f5f3f1;
   --color-base: #F4EFE7;
   --color-text: #534C4B;
   --color-text-light: #b6a6a4;
   
-  --color-color1: #F3D05A;
+  --color-color1: #e6c55c;
   --color-color1-light: #F6E4A8;
   --color-color2: #E87561;
   --color-color2-light: #F4BDB3;
@@ -57,6 +58,7 @@ html, body{
 }
 
 body {
+  color: var(--color-text);
   position: relative;
   font-family: "M PLUS Rounded 1c", sans-serif;
   background-color: var(--color-base);
@@ -88,7 +90,8 @@ body {
   }
   
   input {
-    padding: var(--space-s);
+    line-height: 1rem;
+    padding: 0 var(--space-s);
     background-color: var(--color-bg);
     width: 5rem;
   }

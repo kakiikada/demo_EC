@@ -30,8 +30,8 @@ export default function Footer() {
             </ul>
           </div> */}
         </div>
-        <small className="footer-copy"> © {new Date().getFullYear()} portfolio site</small>
       </div>
+      <small className="footer-copy"> © {new Date().getFullYear()} portfolio site</small>
     </footer>
   )
 }

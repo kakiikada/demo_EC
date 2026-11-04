@@ -1,0 +1,104 @@
+.categoryNav {
+    .categoryNav_list {
+        display: flex;
+        flex-wrap: wrap;
+        li {
+            width: 33.3%;
+            @media screen and (max-width: 768px) {
+                width: 50%;
+            }
+        }
+        .categoryNav_list_title {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 2 / 1;
+            .categoryNav_list_title_text {
+                position: absolute;
+                inset: 0;
+                font-size: clamp(10px, 3svw, 2.75rem);
+                color: var(--color-bg);
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: var(--color-text);
+                transition: var(--transition);
+                @media screen and (max-width: 768px) {
+                    font-size: clamp(1rem, 5svw, 2.5rem);
+                }
+            }
+        }
+    }
+    .categoryCard {
+        display: flex;
+        flex-wrap: wrap;
+        transition: var(--transition);
+        .categoryCard_img {
+            width: 50%;
+            overflow: hidden;
+            img {
+                width: 100%;
+                aspect-ratio: 1 / 1;
+                object-fit: cover;
+                opacity: 0.75;
+                transition: var(--transition);
+            }
+        }
+        .categoryCard_text {
+            color: var(--color-bg);
+            width: 50%;
+            font-size: clamp(10px, 2svw, 1.75rem);
+            display: flex;
+            align-items: center;
+            padding: var(--space-s);
+            @media screen and (max-width: 768px) {
+                padding: var(--space-m);
+                font-size: 3svw;
+            }
+            span {
+                display: block;
+            }
+        }
+        &.tableware {
+            background-color: var(--color-color1);
+        }
+        &.stationery {
+            background-color: var(--color-color2);
+        }
+        &.lighting {
+            background-color: var(--color-color3);
+        }
+        &.fabrics {
+            background-color: var(--color-color4);
+        }
+        &.plants {
+            background-color: var(--color-color5);
+        }
+    }
+    a:hover {
+        .categoryNav_list_title .categoryNav_list_title_text {
+            background-color: var(--color-text-light);
+            color: var(--color-text);
+        }
+        .categoryCard {
+            img {
+                transform: scale(110%);
+            }
+            &.tableware {
+                background-color: var(--color-color1-light);
+            }
+            &.stationery {
+                background-color: var(--color-color2-light);
+            }
+            &.lighting {
+                background-color: var(--color-color3-light);
+            }
+            &.fabrics {
+                background-color: var(--color-color4-light);
+            }
+            &.plants {
+                background-color: var(--color-color5-light);
+            }
+        }
+    }
+}

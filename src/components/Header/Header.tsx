@@ -11,10 +11,9 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <header className="header">
-      <div className="wrapper">
         <div className="header-layout">
           <div className="header-layout_left">
-            <h1><a href="./"><img src={HeaderLogo} alt="POM PLEIN" /></a></h1>
+            <h1><a href="/"><img src={HeaderLogo} alt="POM PLEIN" /></a></h1>
           </div>
           {/* {!isForm && (
           <div className="header-layout_right">
@@ -43,7 +42,6 @@ export default function Header() {
             />
           </div>
         </div>
-      </div>
     </header>
   )
 }

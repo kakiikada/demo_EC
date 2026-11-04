@@ -52,10 +52,10 @@ function ProductDetail() {
                 </button>
               </div>
               <div className="ProductDetail_form_btnBox">
-                <button type="submit">
+                <button className="btn" type="submit">
                   カートに追加
                 </button>
-                <button className="ProductDetail_form_btnBox-favo" type="button">
+                <button className="btn-favo" type="button">
                   お気に入り登録
                 </button>
               </div>

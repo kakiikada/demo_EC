@@ -166,6 +166,7 @@
             display: none;
         }
     ul {
+        overflow: hidden;
         color: var(--color-text);
         width: 100%;
         display: flex;
@@ -173,11 +174,28 @@
         li {
             width: 100%;
             a {
+                position: relative;
                 color: var(--color-bg);
-                display: block;
-                text-align: center;
-                line-height: 4rem;
                 height: 4rem;
+                line-height: 4rem;
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: center;
+                transition: var(--transition);
+                span {
+                    position: absolute;
+                    top: calc(0);
+                    opacity: 0;
+                    transition: var(--transition);
+                }
+                &:hover {
+                    color: rgba(255,255,255,0);
+                    span {
+                        color: var(--color-bg);
+                        opacity: 1;
+                    }
+                }
             }
             &:first-child {
                 background-color: var(--color-color1);

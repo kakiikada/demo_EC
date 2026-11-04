@@ -17,17 +17,17 @@ export default function Navigation({
             <li>
               <div className="header-searchBox"><input type="text" /><button></button></div>
             </li>
-            <li className="header-favo"><a href="./#Favorites"></a></li>
-            <li className="header-cart"><a href="./#Cart"></a></li>
-            <li className="header-user"><a href="./#MyPage"></a></li>
+            <li className="header-favo"><a href="/Favorites"></a></li>
+            <li className="header-cart"><a href="/Cart"></a></li>
+            <li className="header-user"><a href="/MyPage"></a></li>
           </ul>
           <div className="header-nav_categorySP">
             <ul>
-              <li><a href="">Tableware/食器</a></li>
-              <li><a href="">Stationery/文具</a></li>
-              <li><a href="">Lighting/照明</a></li>
-              <li><a href="">Fabrics/インテリア雑貨</a></li>
-              <li><a href="">Plants/植物小物</a></li>
+              <li><a href="/category/1">Tableware <span>/ 食器</span></a></li>
+              <li><a href="/category/1">Stationery <span>/ 文具</span></a></li>
+              <li><a href="/category/1">Lighting <span>/ 照明</span></a></li>
+              <li><a href="/category/1">Fabrics <span>/ インテリア雑貨</span></a></li>
+              <li><a href="/category/1">Plants <span>/ 植物小物</span></a></li>
             </ul>
           </div>
         </nav>
@@ -36,11 +36,11 @@ export default function Navigation({
     <div className="header-layout_bottom">
       <div className="header-categoryPC">
         <ul>
-          <li><a href="">Tableware/食器</a></li>
-          <li><a href="">Stationery/文具</a></li>
-          <li><a href="">Lighting/照明</a></li>
-          <li><a href="">Fabrics/インテリア雑貨</a></li>
-          <li><a href="">Plants/植物小物</a></li>
+          <li><a href="/category/1">Tableware<span>食器</span></a></li>
+          <li><a href="/category/1">Stationery<span>文具</span></a></li>
+          <li><a href="/category/1">Lighting<span>照明</span></a></li>
+          <li><a href="/category/1">Fabrics<span>インテリア雑貨</span></a></li>
+          <li><a href="/category/1">Plants<span>植物小物</span></a></li>
         </ul>
       </div>
     </div>
