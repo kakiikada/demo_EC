@@ -19,7 +19,7 @@ function Cart() {
             </div>
           </div>
         </div>
-        <section className="cart_listBox">
+        <div className="cart_listBox">
           <ul className="basicList">
             <li className="basicList_list">
               <a href="">
@@ -148,7 +148,7 @@ function Cart() {
               </a>
             </li>
           </ul>
-        </section>
+        </div>
         <div className="wrapper">
           <div className="cart_total">
             <div className="cart_total_contents">

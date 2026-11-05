@@ -1,0 +1,27 @@
+[
+  {
+    "id": "tableware",
+    "name": "Tableware",
+    "label": "食器"
+  },
+  {
+      "id": "stationery",
+      "name": "Stationery",
+      "label": "文具"
+    },
+    {
+      "id": "lighting",
+      "name": "Lighting",
+      "label": "照明"
+    },
+  {
+    "id": "fabrics",
+    "name": "Fabrics",
+    "label": "インテリア雑貨"
+  },
+  {
+    "id": "plants",
+    "name": "Plants",
+    "label": "植物小物"
+  }
+]

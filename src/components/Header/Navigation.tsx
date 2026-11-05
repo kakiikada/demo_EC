@@ -15,7 +15,11 @@ export default function Navigation({
           <ul className="header-nav_menu_item">
             {/* <li>Home</li> */}
             <li>
-              <div className="header-searchBox"><input type="text" /><button></button></div>
+              <div className="header-searchBox">
+                <input type="text" />
+              {/* <button></button> */}
+              <a href="/Search"></a>
+              </div>
             </li>
             <li className="header-favo"><a href="/Favorites"></a></li>
             <li className="header-cart"><a href="/Cart"></a></li>

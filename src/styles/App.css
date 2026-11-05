@@ -288,6 +288,7 @@ main {
     }
     .login_input {
         display: flex;
+        align-items: center;
         width: 100%;
         span {
             display: inline-block;
@@ -307,6 +308,23 @@ main {
     .login_logo {
         height: 3rem;
     }
+}
+.search {
+    padding: var(--space-l) 0 var(--space-ll) ;
+    .search_header {
+        margin: 0 var(--space-m);
+    }
+    .search_listHeader {
+        margin-top: var(--space-l);
+        padding: 0 var(--space-m);
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+    }
+    .search_listBox {
+        margin-top: var(--space-s);
+    }
+
 }
 
 /* 共有の可能性のあるアイテム */

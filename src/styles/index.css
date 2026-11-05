@@ -96,6 +96,49 @@ body {
     width: 5rem;
   }
 }
+.selectBox {
+  display: inline-block;
+  line-height: 1rem;
+  position: relative;
+  background-color: var(--color-bg);
+  &::after {
+    pointer-events: none;
+    position: absolute;
+    content: '';
+    right: 0.5rem;
+    top: calc(50% - 0.25rem);
+    height: 0.5rem;
+    width: 0.5rem;
+    display: block;
+    border-right: 0.125rem solid var(--color-bg);
+    border-bottom: 0.125rem solid var(--color-bg);
+    transform: rotate(45deg);
+  }
+  &::before {
+    pointer-events: none;
+    position: absolute;
+    content: '';
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: inline-block;
+    color: var(--color-bg);
+    font-size: 1rem;
+    line-height: 1rem;
+    width: 1.5rem;
+    text-align: center;
+    padding: var(--space-s) var(--space-ss);
+    background-color: var(--color-main);
+  }
+  select {
+    cursor: pointer;
+    padding: var(--space-s) 2rem var(--space-s) var(--space-m);
+    &:focus {
+    outline: none;
+  }
+  }
+
+  }
 /* @media (max-width: 1400x) {
   font-size: 16px;
 } */

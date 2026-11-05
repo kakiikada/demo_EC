@@ -10,6 +10,7 @@ import Favorites from './pages/Favorites';
 import Cart from './pages/Cart';
 import Login from './pages/Login';
 import MyPage from './pages/MyPage';
+import Search from './pages/Search';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/login" element={<Login />} />
             <Route path="/mypage" element={<MyPage />} />
+            <Route path="/search" element={<Search />} />
           </Routes>
         </BrowserRouter>
       </main>
