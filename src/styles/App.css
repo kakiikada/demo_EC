@@ -1,22 +1,26 @@
 /* home */
 main {
-    margin-top: 8rem;
+    margin-top: 4rem;
     min-height: calc(100svh - 10rem);
     @media screen and (max-width: 768px) {
         margin-top: 3rem;
     }
 }
+.is-home + main {
+    margin-top: 0;
+}
 .home {
     .catch {
         position: relative;
-        background-color: #888;
+        background-color: #2e2301;
         width: 100%;
         display: block;
         .catch_scroll {
             position: absolute;
+            z-index: 10;
             font-size: 1.25rem;
             left: calc(50% - 110px);
-            bottom: 5rem;
+            bottom: 10rem;
             text-align: center;
             color: var(--color-bg);
             width: 220px;
@@ -44,10 +48,11 @@ main {
             }
         }
         img {
-            height: calc(100svh - 12rem);
+            height: 100svh;
             width: 100%;
             object-fit: cover;
             pointer-events: none;
+            opacity: 0.85;
         }
     }
     .newItem {
@@ -59,8 +64,13 @@ main {
     padding: var(--space-l) var(--space-m) var(--space-ll) ;
 }
 .ProductDetail {
+    position: relative;
     display: flex;
     flex-wrap: wrap;
+    padding: var(--space-m);
+    padding-top: var(--space-l);
+    background-color: var(--color-bg);
+    background-clip: content-box;
     .ProductDetail_img {
         width: 40%;
         @media screen and (max-width: 1040px) {
@@ -118,14 +128,6 @@ main {
         }
     }
     .ProductDetail_icon {
-        span {
-            color: var(--color-safety);
-            font-weight: bold;
-            padding: var(--space-ss) var(--space-s);
-            background-color: var(--color-bg);
-            border: 1px solid var(--color-safety);
-            border-radius: 0.25rem;
-        }
     }
 }
 .myPage {
@@ -267,7 +269,7 @@ main {
         max-width: 100%;
         margin: var(--space-lm) auto;
         padding: var(--space-lm);
-        background-color: var(--color-text);
+        background-color: var(--color-main);
         .login_contents_list {
             display: flex;
             gap: var(--space-m);
@@ -281,7 +283,7 @@ main {
             a, button {
                 transition: var(--transition);
                 &:hover {
-                    color: var(--color-main);
+                    color: var(--color-crisis);
                 }
             }
         }
@@ -322,7 +324,7 @@ main {
         justify-content: space-between;
     }
     .search_listBox {
-        margin-top: var(--space-s);
+        margin-top: var(--space-lm);
     }
 
 }
@@ -353,7 +355,7 @@ main {
     background-color: var(--color-bg);
     .basicList_list {
         &:nth-child(even) {
-            background-color: var(--color-gray);
+            background-color: var(--color-gray-light);
         }
     }
 }
@@ -363,7 +365,7 @@ main {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
-        gap: 0.5rem 0;
+        gap: 2rem 0;
         @media screen and (max-width: 768px) {
             gap: 2rem 0;
         }
@@ -377,6 +379,7 @@ main {
 }
 .itemCard {
     .itemCard_img {
+        position: relative;
         overflow: hidden;
         width: 100%;
         img {
@@ -384,6 +387,36 @@ main {
             aspect-ratio: 1 / 1;
             object-fit: cover;
             transition: var(--transition);
+        }
+        .stockIcon {
+            position: absolute;
+            z-index: 100;
+            top: 0;
+            left: 0;
+        }
+        .favoIcon {
+            position: absolute;
+            z-index: 100;
+            top: var(--space-s);
+            right: var(--space-s);
+            height: 2rem;
+            width: 2rem;
+            border-radius: 50%;
+            background-color: var(--color-bg);
+            background-image: url(../assets/heart-line.svg);
+            background-size: 75%;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: var(--transition);
+            &:hover {
+                background-color: var(--color-favo-light);
+            }
+            &.favo {
+                background-image: url(../assets/heart-fill.svg);
+                &:hover {
+                    background-color: var(--color-bg);
+                }
+            }
         }
     }
     .itemCard_text {
@@ -517,4 +550,23 @@ a:hover .itemLine_img img {
     @media screen and (max-width: 768px) {
         padding: 0.5rem 1rem;
     }
+}
+.stockIcon-full,
+.stockIcon-few,
+.stockIcon-none {
+    padding: var(--space-ss) var(--space-s);
+    font-size: 0.875rem;
+    color: var(--color-bg);
+    border-radius: 0.125rem;
+    padding: var(--space-ss) var(--space-s);
+    background-color: var(--color-bg);
+}
+.stockIcon-full {
+    background-color: var(--color-safety);
+}
+.stockIcon-few {
+    background-color: var(--color-crisis);
+}
+.stockIcon-none {
+    background-color: var(--color-gray);
 }

@@ -20,7 +20,6 @@ function Favorites() {
                       <li className="itemLine_text_title">商品名</li>
                       <li className="itemLine_text_text">商品説明テキストテキストテキスト</li>
                       <li className="itemLine_text_price">￥2,500</li>
-                      <li className="itemLine_text_count">数量:1</li>
                     </ul>
                   </div>
                 </div>
@@ -35,7 +34,6 @@ function Favorites() {
                       <li className="itemLine_text_title">商品名</li>
                       <li className="itemLine_text_text">商品説明テキストテキストテキスト</li>
                       <li className="itemLine_text_price">￥2,500</li>
-                      <li className="itemLine_text_count">数量:1</li>
                     </ul>
                   </div>
                 </div>
@@ -50,7 +48,6 @@ function Favorites() {
                       <li className="itemLine_text_title">商品名</li>
                       <li className="itemLine_text_text">商品説明テキストテキストテキスト</li>
                       <li className="itemLine_text_price">￥2,500</li>
-                      <li className="itemLine_text_count">数量:1</li>
                     </ul>
                   </div>
                 </div>

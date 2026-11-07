@@ -1,30 +1,35 @@
 :root {
   --color-bg: #FFF;
-  --color-gray: #f5f3f1;
+  --color-gray-light: #f5f3f1;
+  --color-gray: #b6a6a4;
   --color-base: #F4EFE7;
   --color-text: #534C4B;
   --color-text-light: #b6a6a4;
   
-  --color-color1: #e6c55c;
-  --color-color1-light: #F6E4A8;
-  --color-color2: #E87561;
-  --color-color2-light: #F4BDB3;
-  --color-color3: #75A9A0;
-  --color-color3-light: #B2C5C2;
-  --color-color4: #608ECA;
-  --color-color4-light: #9FB6D3;
-  --color-color5: #F095B1;
-  --color-color5-light: #F0C7D3;
+  --color-safety: #75A9A0;
+  --color-safety-light: #aac5c1;
+  --color-crisis: #e6c55c;
+  --color-crisis-light: #F6E4A8;
+  --color-favo: #F095B1;
+  --color-favo-light: #F0C7D3;
+  --color-danger: #E87561;
+  --color-danger-light: #F4BDB3;
 
-  --color-gradient: linear-gradient(175deg, var(--color-main),var(--color-accent));
-
-  --color-main: var(--color-color1);
-  --color-main-light: var(--color-color1-light);
+  --color-main: var(--color-text);
+  --color-main-light: var(--color-text-light);
   --color-accent: var(--color-color2);
   --color-accent-light: var(--color-color2-light);
-  --color-safety: var(--color-color3);
-  --color-favo: var(--color-color5);
-  --color-favo-light: var(--color-color5-light);
+
+  --color-color1: #608ECA;
+  --color-color1-light: #9FB6D3;
+  --color-color2: var(--color-danger);
+  --color-color2-light: var(--color-danger-light);
+  --color-color3: var(--color-crisis);
+  --color-color3-light: var(--color-crisis-light);
+  --color-color4: var(--color-favo);
+  --color-color4-light: var(--color-favo-light);
+  --color-color5:  var(--color-safety);
+  --color-color5-light: var(--color-safety-light);
 
   --shadow:
     0.25rem 0.25rem 0.25rem 0.25rem#534C4B;
@@ -49,6 +54,14 @@
 
   --transition: .3s;
   --bg-template: no-repeat center/75% ;
+
+  --color-header: var(--color-main);
+  .header.is-home:not(.is-scrolled) {
+    --color-header: var(--color-main);
+      @media screen and (max-width: 768px) {
+      --color-header: var(--color-bg);
+      }
+  }
 }
 
 html, body{
@@ -58,6 +71,7 @@ html, body{
 }
 
 body {
+  overflow-x: hidden;
   color: var(--color-text);
   position: relative;
   font-family: "M PLUS Rounded 1c", sans-serif;
@@ -79,7 +93,7 @@ body {
       width: 1.5rem;
       text-align: center;
       padding: var(--space-ss);
-      background-color: var(--color-main);
+      background-color: var(--color-crisis);
       &:first-child {
         border-radius: 0.25rem 0 0 0.25rem;
 
@@ -93,6 +107,7 @@ body {
     line-height: 1rem;
     padding: 0 var(--space-s);
     background-color: var(--color-bg);
+    border: 1px solid var(--color-color3-light);
     width: 5rem;
   }
 }
@@ -128,7 +143,7 @@ body {
     width: 1.5rem;
     text-align: center;
     padding: var(--space-s) var(--space-ss);
-    background-color: var(--color-main);
+    background-color: var(--color-crisis);
   }
   select {
     cursor: pointer;

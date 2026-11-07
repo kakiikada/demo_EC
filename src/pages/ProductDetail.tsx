@@ -1,29 +1,40 @@
 import { useState } from 'react';
-import home_catch from "../assets/common/home_catch.jpg";
+import { useParams } from 'react-router-dom';
+import StockStatus from '../components/StockStatus';
+import products from '../data/products';
 
 
 
 function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
     // カートに商品を追加する処理
     console.log("数量:", quantity);
   };
+  // 対応する商品のみ取得
+  const { productId } = useParams();
+  const currentProduct = products.find(
+    (product) => product.id === productId
+  );
   return (
     <div className="wrapper">
+      {currentProduct && (
       <div className="ProductDetail">
         <div className="ProductDetail_img">
-          <img src={home_catch} alt="" />
+        <img
+          src={currentProduct.image}
+          alt={currentProduct.name}
+        />
         </div>
         <div className="ProductDetail_text">
-          <h1 className="ProductDetail_text_title">商品名</h1>
+          <h1 className="ProductDetail_text_title">{currentProduct.name}</h1>
           <ul className="ProductDetail_text_data">
-            <li>商品説明テキストテキストテキストテキストテキストテキストテキスト</li>
-            <li className="ProductDetail_price">¥1,950 <small>(税込)</small></li>
-            <li className="ProductDetail_icon"><span>在庫あり</span></li>
+            <li>{currentProduct.description}</li>
+            <li className="ProductDetail_price">¥{currentProduct.price.toLocaleString("ja-JP")} <small>(税込)</small></li>
+            <li className="ProductDetail_icon">
+              <StockStatus stock={currentProduct.stock} />
+            </li>
           </ul>
           <form onSubmit={handleSubmit}>
             <div className="ProductDetail_form">
@@ -64,7 +75,7 @@ function ProductDetail() {
 
         </div>
       </div>
-
+      )}
     </div>
   );
 }

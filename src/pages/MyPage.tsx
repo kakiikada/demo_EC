@@ -12,8 +12,8 @@ function ProductDetail() {
               <p>こんにちは、Guest さん。いつもご利用ありがとうございます。</p>
             </div>
             <ul className="myPage_header_link">
-              <li><a className="btn-favo" href="/Favorites">お気に入り</a></li>
-              <li><a className="btn" href="/Cart">カート</a></li>
+              <li><a className="btn-favo" href="/favorites">お気に入り</a></li>
+              <li><a className="btn" href="/cart">カート</a></li>
             </ul>
           </div>
         </div>
@@ -87,7 +87,7 @@ function ProductDetail() {
               </ul>
             </div>
             <div className="myPage_userData_btn">
-              <a className="btn" href="/Login">ログアウト</a>
+              <a className="btn" href="/login">ログアウト</a>
             </div>
           </section>
         </div>

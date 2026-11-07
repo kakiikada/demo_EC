@@ -10,27 +10,27 @@ import Favorites from './pages/Favorites';
 import Cart from './pages/Cart';
 import Login from './pages/Login';
 import MyPage from './pages/MyPage';
-import Search from './pages/Search';
+import SearchResults from './pages/SearchResults';
 
 function App() {
   return (
     <>
-      <Header />
-      <main>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/category/:categoryId" element={<Category />} />
-            <Route path="/product/:productId" element={<ProductDetail />} />
-            <Route path="/favorites" element={<Favorites />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/mypage" element={<MyPage />} />
-            <Route path="/search" element={<Search />} />
-          </Routes>
-        </BrowserRouter>
-      </main>
-      <Footer />
+      <BrowserRouter>
+        <Header />
+        <main>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/category/:categoryId" element={<Category />} />
+              <Route path="/product/:productId" element={<ProductDetail />} />
+              <Route path="/favorites" element={<Favorites />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/mypage" element={<MyPage />} />
+              <Route path="/search" element={<SearchResults />} />
+            </Routes>
+        </main>
+        <Footer />
+      </BrowserRouter>
     </>
   );
 }

@@ -21,7 +21,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                background-color: var(--color-text);
+                background-color: var(--color-main);
                 transition: var(--transition);
                 @media screen and (max-width: 768px) {
                     font-size: clamp(1rem, 5svw, 2.5rem);

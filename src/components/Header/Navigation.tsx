@@ -1,3 +1,7 @@
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import categories from '../../data/categories';
+
 type NavigationProps = {
   isOpen: boolean;
   onClose: () => void;
@@ -7,31 +11,56 @@ export default function Navigation({
   isOpen,
   onClose,
 }: NavigationProps) {
+
+  const [keyword, setKeyword] = useState('');
+  const navigate = useNavigate();
+
+  const handleSearch = () => {
+  const trimmedKeyword = keyword.trim();
+
+  if (!trimmedKeyword) return;
+
+  navigate(`/search?q=${encodeURIComponent(trimmedKeyword)}`);
+  };
+
   return(
     <>
     <div className="header-layout_right">
       <div className={`header-nav ${isOpen ? "js-active" : ""}`}>
         <nav className="header-nav_menu" onClick={onClose}>
           <ul className="header-nav_menu_item">
-            {/* <li>Home</li> */}
+            <li className="header-category">Category</li>
             <li>
-              <div className="header-searchBox">
-                <input type="text" />
-              {/* <button></button> */}
-              <a href="/Search"></a>
-              </div>
+              <form
+                className="header-searchBox"
+                onSubmit={(e) => {
+                e.preventDefault();
+                handleSearch();
+              }}>
+                <input
+                  type="text"
+                  value={keyword}
+                  onChange={(e) => setKeyword(e.target.value)}
+                  placeholder="Search for products"
+                />
+                <button type="submit"></button>
+              </form>
             </li>
-            <li className="header-favo"><a href="/Favorites"></a></li>
-            <li className="header-cart"><a href="/Cart"></a></li>
-            <li className="header-user"><a href="/MyPage"></a></li>
+            <li className="header-favo"><a href="/favorites"></a></li>
+            <li className="header-cart"><a href="/cart"></a></li>
+            <li className="header-user"><a href="/mypage"></a></li>
           </ul>
           <div className="header-nav_categorySP">
             <ul>
-              <li><a href="/category/1">Tableware <span>/ 食器</span></a></li>
-              <li><a href="/category/1">Stationery <span>/ 文具</span></a></li>
-              <li><a href="/category/1">Lighting <span>/ 照明</span></a></li>
-              <li><a href="/category/1">Fabrics <span>/ インテリア雑貨</span></a></li>
-              <li><a href="/category/1">Plants <span>/ 植物小物</span></a></li>
+              {categories.map((category) => (
+                <li
+                  key={category.id}
+                  to={`/category/${category.id}`}
+                  className={`header-nav_categorySP-${category.id}`}
+                >
+                  <a href={`/category/${category.id}`}>{category.name} <span>/ {category.label}</span></a>
+                </li>
+              ))}
             </ul>
           </div>
         </nav>
@@ -40,11 +69,15 @@ export default function Navigation({
     <div className="header-layout_bottom">
       <div className="header-categoryPC">
         <ul>
-          <li><a href="/category/1">Tableware<span>食器</span></a></li>
-          <li><a href="/category/1">Stationery<span>文具</span></a></li>
-          <li><a href="/category/1">Lighting<span>照明</span></a></li>
-          <li><a href="/category/1">Fabrics<span>インテリア雑貨</span></a></li>
-          <li><a href="/category/1">Plants<span>植物小物</span></a></li>
+          {categories.map((category) => (
+            <li
+              key={category.id}
+              to={`/category/${category.id}`}
+              className={`header-nav_categoryPC-${category.id}`}
+            >
+              <a href={`/category/${category.id}`}>{category.name} <span>{category.label}</span></a>
+            </li>
+          ))}
         </ul>
       </div>
     </div>
