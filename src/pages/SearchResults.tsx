@@ -14,7 +14,7 @@ export default function SearchResults() {
       <div className="search">
         <div className="wrapper">
           <div className="search_header">
-            <div className="title">
+            <div className="title-s">
               <h1 className="title_text">「{keyword}」の検索結果：{filteredProducts.length}件</h1>
             </div>
           </div>

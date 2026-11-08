@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
+import { useCart } from "../context/CartContext";
 import StockStatus from '../components/StockStatus';
+import FavoriteButton from '../components/FavoriteButton';
+import CartButton from "../components/CartButton";
 import products from '../data/products';
 
 
@@ -17,6 +20,12 @@ function ProductDetail() {
   const currentProduct = products.find(
     (product) => product.id === productId
   );
+  // 購入用トースト
+  const handleAddToCart = () => {
+    addToCart(currentProduct.id, quantity);
+    setShowToast(true);
+  };
+
   return (
     <div className="wrapper">
       {currentProduct && (
@@ -63,12 +72,13 @@ function ProductDetail() {
                 </button>
               </div>
               <div className="ProductDetail_form_btnBox">
-                <button className="btn" type="submit">
-                  カートに追加
-                </button>
-                <button className="btn-favo" type="button">
-                  お気に入り登録
-                </button>
+                <CartButton
+                  productId={currentProduct.id}
+                  quantity={quantity}
+                />
+                <FavoriteButton
+                  productId={currentProduct.id}
+                />
               </div>
             </div>
           </form>

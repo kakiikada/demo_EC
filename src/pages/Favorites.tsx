@@ -1,5 +1,17 @@
 import home_catch from "../assets/common/home_catch.jpg";
-function Favorites() {
+
+import { Link } from "react-router-dom";
+import products from "../data/products";
+import { useFavorites } from "../context/FavoriteContext";
+import FavoriteButton from '../components/FavoriteButton';
+const Favorites = () => {
+  const { favoriteIds } = useFavorites();
+
+  // お気に入りIDと一致する商品だけ取り出す
+  const favoriteProducts = products.filter((product) =>
+    favoriteIds.includes(product.id)
+  );
+
   return (
       <div className="favorites">
         <div className="wrapper">
@@ -10,50 +22,43 @@ function Favorites() {
           </div>
         </div>
         <section className="favorites_listBox">
+        {favoriteProducts.length === 0 ? (
           <ul className="basicList">
             <li className="basicList_list">
-              <a href="">
-                <div className="wrapper">
-                  <div className="itemLine">
-                    <div className="itemLine_img"><img src={home_catch} alt="" /></div>
-                    <ul className="itemLine_text">
-                      <li className="itemLine_text_title">商品名</li>
-                      <li className="itemLine_text_text">商品説明テキストテキストテキスト</li>
-                      <li className="itemLine_text_price">￥2,500</li>
-                    </ul>
-                  </div>
+              <div className="wrapper">
+                <div className="itemLine">
+                  <p>お気に入りに登録された商品はありません。</p>
                 </div>
-              </a>
-            </li>
-            <li className="basicList_list">
-              <a href="">
-                <div className="wrapper">
-                  <div className="itemLine">
-                    <div className="itemLine_img"><img src={home_catch} alt="" /></div>
-                    <ul className="itemLine_text">
-                      <li className="itemLine_text_title">商品名</li>
-                      <li className="itemLine_text_text">商品説明テキストテキストテキスト</li>
-                      <li className="itemLine_text_price">￥2,500</li>
-                    </ul>
-                  </div>
-                </div>
-              </a>
-            </li>
-            <li className="basicList_list">
-              <a href="">
-                <div className="wrapper">
-                  <div className="itemLine">
-                    <div className="itemLine_img"><img src={home_catch} alt="" /></div>
-                    <ul className="itemLine_text">
-                      <li className="itemLine_text_title">商品名</li>
-                      <li className="itemLine_text_text">商品説明テキストテキストテキスト</li>
-                      <li className="itemLine_text_price">￥2,500</li>
-                    </ul>
-                  </div>
-                </div>
-              </a>
+              </div>
             </li>
           </ul>
+        ) : (
+        <ul className="basicList">
+          {favoriteProducts.map((product) => (
+          <li className="basicList_list" key={product.id}>
+            <a href={`/product/${product.id}`}>
+              <div className="wrapper">
+                <div className="itemLine">
+                  <div className="itemLine_img"><img src={product.image} alt={product.name} /></div>
+                  <ul className="itemLine_text">
+                    <li className="itemLine_text_title">{product.name}</li>
+                    <li className="itemLine_text_text">{product.description}</li>
+                    <li className="itemLine_text_price">¥{product.price.toLocaleString("ja-JP")}</li>
+                    <li>
+                      <FavoriteButton
+                        productId={product.id}
+                        variant="compact"
+                      />
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </a>
+          </li>
+          ))}
+        </ul>
+
+        )}
         </section>
       </div>
   );

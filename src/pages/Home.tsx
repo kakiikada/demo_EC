@@ -1,6 +1,7 @@
 import CategoryNav from "../components/CategoryList/CategoryNav";
 import StockStatus from '../components/StockStatus';
 import products from '../data/products';
+import FavoriteButton from '../components/FavoriteButton';
 import home_catch from "../assets/common/home_catch.jpg";
 
 function Home() {
@@ -39,13 +40,12 @@ function Home() {
                         <div className="itemCard_img">
                           <img src={product.image} alt={product.name} />
                           <StockStatus stock={product.stock} />
-                          <button className="favoIcon"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              handleFavorite();
-                            }}
-                          ></button>
+                          <div className="temCard_img_favoIcon">
+                            <FavoriteButton
+                              productId={product.id}
+                              variant="icon"
+                            />
+                          </div>
                         </div>
                         <div className="itemCard_text">
                           <p>{product.name}</p>

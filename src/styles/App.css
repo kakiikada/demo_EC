@@ -331,7 +331,8 @@ main {
 
 /* 共有の可能性のあるアイテム */
 /* home */
-.title {
+.title,
+.title-s {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -348,6 +349,14 @@ main {
         margin-top: var(--space-s);
         &:hover {
             color: var(--color-accent);
+        }
+    }
+}
+.title-s {
+    .title_text {
+        font-size: 1.5rem;
+        @media screen and (max-width: 768px) {
+            font-size: 1rem;
         }
     }
 }
@@ -394,29 +403,11 @@ main {
             top: 0;
             left: 0;
         }
-        .favoIcon {
+        .temCard_img_favoIcon {
             position: absolute;
             z-index: 100;
             top: var(--space-s);
             right: var(--space-s);
-            height: 2rem;
-            width: 2rem;
-            border-radius: 50%;
-            background-color: var(--color-bg);
-            background-image: url(../assets/heart-line.svg);
-            background-size: 75%;
-            background-position: center;
-            background-repeat: no-repeat;
-            transition: var(--transition);
-            &:hover {
-                background-color: var(--color-favo-light);
-            }
-            &.favo {
-                background-image: url(../assets/heart-fill.svg);
-                &:hover {
-                    background-color: var(--color-bg);
-                }
-            }
         }
     }
     .itemCard_text {
@@ -432,10 +423,10 @@ main {
     padding: var(--space-m);
     .itemLine_img {
         overflow: hidden;
-        width: 6rem;
+        width: 10rem;
         flex-shrink: 0;
         @media screen and (max-width: 768px) {
-            width: 4rem;
+            width: 6rem;
         }
         img {
             width: 100%;
@@ -462,17 +453,23 @@ main {
             }
         }
         .itemLine_text_price,
-        .itemLine_text_count {
-            font-size: 0.875rem;
+        .itemLine_text_count,
+        .itemLine_text_btn {
             vertical-align:bottom;
             display: inline-block;
             margin-right: var(--space-m);
-            @media screen and (max-width: 768px) {
-                width: 100%;
-            }
             
         }
+        .itemLine_text_price {
+            font-size: 1.25rem;
+            margin-top: var(--space-m);
+            width: 100%;
+        }
+        .itemLine_text_count {
+            margin-top: var(--space-s);
+        }
         .itemLine_text_btn {
+            margin-top: var(--space-s);
             display: inline-block;
             vertical-align:bottom;
         }
@@ -485,7 +482,9 @@ a:hover .itemLine_img img {
 }
 .btn,
 .btn-s,
-.btn-favo,
+.btn-cart,
+.btn-favo-default,
+.btn-favo-compact,
 .btn-color1,
 .btn-color2,
 .btn-color3,
@@ -502,16 +501,11 @@ a:hover .itemLine_img img {
     }
 }
 .btn,
-.btn-s {
+.btn-s,
+.btn-cart {
     background-color: var(--color-color2);
     &:hover {
         background-color: var(--color-color2-light);
-    }
-}
-.btn-favo {
-    background-color: var(--color-favo);
-    &:hover {
-        background-color: var(--color-favo-light);
     }
 }
 .btn-color1 {
@@ -550,6 +544,99 @@ a:hover .itemLine_img img {
     @media screen and (max-width: 768px) {
         padding: 0.5rem 1rem;
     }
+}
+.btn-favo-default,
+.btn-favo-compact {
+    box-shadow: none;
+    color: var(--color-bg);
+    background-color: var(--color-favo);
+    &.active {
+        box-shadow: inset 0 0 0 1px var(--color-favo);
+        background-color: var(--color-bg);
+        color: var(--color-favo);
+    }
+    &:hover {
+        color: var(--color-bg);
+        &.active {
+        }
+        box-shadow: none;
+        color: var(--color-bg);
+        background-color: var(--color-favo-light);
+    }
+}
+.btn-favo-compact {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    @media screen and (max-width: 768px) {
+        padding: 0.5rem 1rem;
+    }
+}
+.btn-favo-icon {
+    height: 2rem;
+    width: 2rem;
+    border-radius: 50%;
+    background-color: var(--color-bg);
+    background-image: url(../assets/heart-line.svg);
+    background-size: 75%;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: var(--transition);
+    &:hover {
+        background-color: var(--color-favo-light);
+    }
+    &.active {
+        background-image: url(../assets/heart-fill.svg);
+        &:hover {
+            background-color: var(--color-bg);
+        }
+    }
+}
+.btn-cart {
+    position: relative;
+    transition: var(--transition);
+    &::before {
+        pointer-events: none;
+        position: absolute;
+        content: '';
+        opacity: 0;
+        top: -0.25rem;
+        left: calc(50% - 0.25rem);
+        border-top: 0.25rem solid var(--color-safety);
+        border-left: 0.25rem solid transparent;
+        border-right: 0.25rem solid transparent;
+        transform: translateY(1rem);
+        transition: var(--transition);
+        @media screen and (max-width: 768px) {
+            top: -0.25rem;
+        }
+    }
+    &::after {
+        pointer-events: none;
+        position: absolute;
+        content: "✓カートに追加しました。";
+        opacity: 0;
+        top: -2rem;
+        left: calc(50% - 6rem);
+        font-size: 0.75rem;
+        width: 12rem;
+        padding: var(--space-s) var(--space-m);
+        background-color: var(--color-safety);
+        border-radius: 0.25rem;
+        transform: translateY(1rem);
+        transition: var(--transition);
+        @media screen and (max-width: 768px) {
+            top: -1.5rem;
+            left: calc(50% - 5rem);
+            width: 10rem;
+        }
+    }
+    &.active::before,
+    &.active::after {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
 }
 .stockIcon-full,
 .stockIcon-few,

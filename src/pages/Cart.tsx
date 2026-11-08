@@ -1,15 +1,49 @@
 import { useState } from 'react';
+import { Link } from "react-router-dom";
+import products from "../data/products";
+import { useCart } from "../context/CartContext";
+
 import home_catch from "../assets/common/home_catch.jpg";
 
 function Cart() {
-  const [quantity, setQuantity] = useState(1);
+  const {
+    cartItems,
+    updateQuantity,
+    removeFromCart,
+  } = useCart();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  // カート内の商品情報を取得
+  const cartProducts = cartItems
+    .map((item) => {
+      const product = products.find(
+        (product) => product.id === item.productId
+      );
 
-    // カートに商品を追加する処理
-    console.log("数量:", quantity);
-  };
+      if (!product) return null;
+
+      return {
+        ...product,
+        quantity: item.quantity,
+      };
+    })
+    .filter((product) => product !== null);
+    // 商品の合計数量
+    const totalQuantity = cartProducts.reduce(
+      (total, product) => total + product.quantity,
+      0
+    );
+
+    // 合計金額
+    const totalPrice = cartProducts.reduce(
+      (total, product) => total + product.price * product.quantity,
+      0
+    );
+    // 送料
+    const shippingFee = cartProducts.length > 0 ? 300 : 0;
+
+    // 商品小計＋送料
+    const totalAmount = totalPrice + shippingFee;
+
   return (
       <div className="cart">
         <div className="wrapper">
@@ -20,142 +54,82 @@ function Cart() {
           </div>
         </div>
         <div className="cart_listBox">
+          {cartProducts.length === 0 ? (
+          <p>カートに商品がありません。</p>
+          // <Link to="/">お買い物を続ける</Link>
+          ) : (
           <ul className="basicList">
-            <li className="basicList_list">
-              <a href="">
+            {cartProducts.map((product) => (
+            <li className="basicList_list" key={product.id}>
+              <a href={`/product/${product.id}`}>
                 <div className="wrapper">
                   <div className="itemLine">
-                    <div className="itemLine_img"><img src={home_catch} alt="" /></div>
+                    <div className="itemLine_img"><img src={product.image} alt={product.name} /></div>
                     <ul className="itemLine_text">
-                      <li className="itemLine_text_title">商品名</li>
-                      <li className="itemLine_text_text">商品説明テキストテキストテキスト</li>
-                      <li className="itemLine_text_price">￥2,500</li>
+                      <li className="itemLine_text_title">{product.name}</li>
+                      <li className="itemLine_text_text">{product.description}</li>
+                      <li className="itemLine_text_price">¥{product.price.toLocaleString("ja-JP")}</li>
                       <li className="itemLine_text_count">
-                        <div className="quantityBtn">
+                        <div className="quantityBtn-s">
                           <button
                             type="button"
-                            onClick={() => setQuantity(q => Math.max(1, q - 1))}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              updateQuantity(product.id, product.quantity - 1);
+                            }}
+                            disabled={product.quantity <= 1}
                           >
                             -
                           </button>
                           <input
-                            id="quantity"
+                            id={`quantity-${product.id}`}
                             type="number"
                             min="1"
-                            value={quantity}
+                            value={product.quantity}
+                            onClick={(e) => e.stopPropagation()}
                             onChange={(e) =>
-                              setQuantity(Number(e.target.value))
+                              updateQuantity(product.id, Number(e.target.value))
                             }
                           />
                           <button
                             type="button"
-                            onClick={() => setQuantity(q => Math.max(1, q + 1))}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                              updateQuantity(product.id, product.quantity + 1);
+                            }}
                           >
                             +
                           </button>
                         </div>
                       </li>
                       <li className="itemLine_text_btn">
-                        <button className="btn-s">削除</button>
+                        <button
+                          className="btn-s"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            removeFromCart(product.id);
+                          }}
+                        >削除</button>
                       </li>
                     </ul>
                   </div>
                 </div>
               </a>
             </li>
-            <li className="basicList_list">
-              <a href="">
-                <div className="wrapper">
-                  <div className="itemLine">
-                    <div className="itemLine_img"><img src={home_catch} alt="" /></div>
-                    <ul className="itemLine_text">
-                      <li className="itemLine_text_title">商品名</li>
-                      <li className="itemLine_text_text">商品説明テキストテキストテキスト</li>
-                      <li className="itemLine_text_price">￥2,500</li>
-                      <li className="itemLine_text_count">
-                        <div className="quantityBtn">
-                          <button
-                            type="button"
-                            onClick={() => setQuantity(q => Math.max(1, q - 1))}
-                          >
-                            -
-                          </button>
-                          <input
-                            id="quantity"
-                            type="number"
-                            min="1"
-                            value={quantity}
-                            onChange={(e) =>
-                              setQuantity(Number(e.target.value))
-                            }
-                          />
-                          <button
-                            type="button"
-                            onClick={() => setQuantity(q => Math.max(1, q + 1))}
-                          >
-                            +
-                          </button>
-                        </div>
-                      </li>
-                      <li className="itemLine_text_btn">
-                        <button className="btn-s">削除</button>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </a>
-            </li>
-            <li className="basicList_list">
-              <a href="">
-                <div className="wrapper">
-                  <div className="itemLine">
-                    <div className="itemLine_img"><img src={home_catch} alt="" /></div>
-                    <ul className="itemLine_text">
-                      <li className="itemLine_text_title">商品名</li>
-                      <li className="itemLine_text_text">商品説明テキストテキストテキスト</li>
-                      <li className="itemLine_text_price">￥2,500</li>
-                      <li className="itemLine_text_count">
-                        <div className="quantityBtn">
-                          <button
-                            type="button"
-                            onClick={() => setQuantity(q => Math.max(1, q - 1))}
-                          >
-                            -
-                          </button>
-                          <input
-                            id="quantity"
-                            type="number"
-                            min="1"
-                            value={quantity}
-                            onChange={(e) =>
-                              setQuantity(Number(e.target.value))
-                            }
-                          />
-                          <button
-                            type="button"
-                            onClick={() => setQuantity(q => Math.max(1, q + 1))}
-                          >
-                            +
-                          </button>
-                        </div>
-                      </li>
-                      <li className="itemLine_text_btn">
-                        <button className="btn-s">削除</button>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </a>
-            </li>
+            ))}
           </ul>
+          )}
         </div>
         <div className="wrapper">
           <div className="cart_total">
             <div className="cart_total_contents">
-              <p className="cart_total_contents_text"><small>商品数量：</small>￥2個</p>
-              <p className="cart_total_contents_text"><small>商品小計：</small>￥20,000</p>
-              <p className="cart_total_contents_text"><small>送料：</small>￥300</p>
-              <p className="cart_total_contents_total"><small>合計：</small><span>￥20,300</span></p>
+              <p className="cart_total_contents_text"><small>商品数量：</small>{totalQuantity}点</p>
+              <p className="cart_total_contents_text"><small>商品小計：</small>¥{totalPrice.toLocaleString("ja-JP")}</p>
+              <p className="cart_total_contents_text"><small>送料：</small>¥{shippingFee.toLocaleString("ja-JP")}</p>
+              <p className="cart_total_contents_total"><small>合計：</small><span>¥{totalAmount.toLocaleString("ja-JP")}</span></p>
               <div className="cart_total_contents_btn">
                 <button className="btn">レジに進む</button>
               </div>

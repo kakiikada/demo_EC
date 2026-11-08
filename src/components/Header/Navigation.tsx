@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useCart } from "../../context/CartContext";
 import categories from '../../data/categories';
 
 type NavigationProps = {
@@ -22,6 +23,8 @@ export default function Navigation({
 
   navigate(`/search?q=${encodeURIComponent(trimmedKeyword)}`);
   };
+
+  const { cartCount } = useCart();
 
   return(
     <>
@@ -47,7 +50,14 @@ export default function Navigation({
               </form>
             </li>
             <li className="header-favo"><a href="/favorites"></a></li>
-            <li className="header-cart"><a href="/cart"></a></li>
+            <li className="header-cart">
+              <a href="/cart"></a>
+
+
+                {cartCount > 0 && (
+                  <span>{cartCount > 99 ? " " : cartCount}</span>
+                )}
+            </li>
             <li className="header-user"><a href="/mypage"></a></li>
           </ul>
           <div className="header-nav_categorySP">

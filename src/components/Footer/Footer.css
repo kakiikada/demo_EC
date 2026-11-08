@@ -4,21 +4,23 @@
     background-color: var(--color-bg);
 }
 .footer-layout {
-    padding: var(--space-m);
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    .footer-layout_left {
+    padding: var(--space-ll) var(--space-m)var(--space-l);
+    display: block;
+    text-align: center;
+    /* flex-wrap: wrap; */
+    /* justify-content: center; */
+    /* .footer-layout_left {
         width: 14rem;
         @media screen and (max-width: 768px) {
             width: 100%;
         }
-    }
+    } */
     /* .footer-layout_right {
         
     } */
 }
 .footer-LogoBox {
+    margin:  0 auto;
     @media screen and (max-width: 768px) {
         text-align: center;
     }
@@ -30,9 +32,10 @@
     }
 }
 .footer-snsList {
-    margin-top: var(--space-l);
+    margin-top: var(--space-lm);
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: var(--space-m);
     @media screen and (max-width: 768px) {
         justify-content: center;

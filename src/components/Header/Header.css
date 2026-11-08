@@ -139,6 +139,7 @@
     }
     .header-favo a,
     .header-cart a {
+        position: relative;
         display: block;
         height: 2rem;
         width: 2rem;
@@ -150,11 +151,26 @@
         &:hover {
             background-image: url(../../assets/heart-fill.svg);
         }
-    }
-    .header-cart a {
-        background-image: url(../../assets/shopping-bag-line.svg);
-        &:hover {
-            background-image: url(../../assets/shopping-bag-fill.svg);
+    }.header-cart{
+        position: relative;
+        a {
+            background-image: url(../../assets/shopping-bag-line.svg);
+            &:hover {
+                background-image: url(../../assets/shopping-bag-fill.svg);
+            }
+        }
+        span {
+            pointer-events: none;
+            position: absolute;
+            top: 0;
+            right: -0.25rem;
+            font-size: 0.625rem;
+            text-align: center;
+            line-height: 1rem;
+            height: 1rem;
+            width: 1rem;
+            border-radius: 50%;
+            background-color: var(--color-danger);
         }
     }
     .header-user a {
