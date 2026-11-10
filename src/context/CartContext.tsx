@@ -12,6 +12,7 @@ interface CartContextType {
   addToCart: (productId: string, quantity?: number) => void;
   updateQuantity: (productId: string, quantity: number) => void;
   removeFromCart: (productId: string) => void;
+  clearCart: () => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -65,6 +66,11 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       prev.filter((item) => item.productId !== productId)
     );
   };
+    
+  // カート内の商品を全削除
+  const clearCart = () => {
+    setCartItems([]);
+  };
 
   // カート内の総商品数
   const cartCount = cartItems.reduce(
@@ -80,6 +86,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         addToCart,
         updateQuantity,
         removeFromCart,
+        clearCart,
       }}
     >
       {children}

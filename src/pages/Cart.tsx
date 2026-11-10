@@ -53,85 +53,86 @@ function Cart() {
             </div>
           </div>
         </div>
-        <div className="cart_listBox">
-          {cartProducts.length === 0 ? (
-          <p>カートに商品がありません。</p>
-          // <Link to="/">お買い物を続ける</Link>
-          ) : (
-          <ul className="basicList">
-            {cartProducts.map((product) => (
-            <li className="basicList_list" key={product.id}>
-              <a href={`/product/${product.id}`}>
-                <div className="wrapper">
-                  <div className="itemLine">
-                    <div className="itemLine_img"><img src={product.image} alt={product.name} /></div>
-                    <ul className="itemLine_text">
-                      <li className="itemLine_text_title">{product.name}</li>
-                      <li className="itemLine_text_text">{product.description}</li>
-                      <li className="itemLine_text_price">¥{product.price.toLocaleString("ja-JP")}</li>
-                      <li className="itemLine_text_count">
-                        <div className="quantityBtn-s">
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              updateQuantity(product.id, product.quantity - 1);
-                            }}
-                            disabled={product.quantity <= 1}
-                          >
-                            -
-                          </button>
-                          <input
-                            id={`quantity-${product.id}`}
-                            type="number"
-                            min="1"
-                            value={product.quantity}
-                            onClick={(e) => e.stopPropagation()}
-                            onChange={(e) =>
-                              updateQuantity(product.id, Number(e.target.value))
-                            }
-                          />
-                          <button
-                            type="button"
-                            onClick={(e) => {
-                              e.preventDefault();
-                              e.stopPropagation();
-                              updateQuantity(product.id, product.quantity + 1);
-                            }}
-                          >
-                            +
-                          </button>
-                        </div>
-                      </li>
-                      <li className="itemLine_text_btn">
-                        <button
-                          className="btn-s"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            removeFromCart(product.id);
-                          }}
-                        >削除</button>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </a>
-            </li>
-            ))}
-          </ul>
-          )}
-        </div>
         <div className="wrapper">
-          <div className="cart_total">
-            <div className="cart_total_contents">
-              <p className="cart_total_contents_text"><small>商品数量：</small>{totalQuantity}点</p>
-              <p className="cart_total_contents_text"><small>商品小計：</small>¥{totalPrice.toLocaleString("ja-JP")}</p>
-              <p className="cart_total_contents_text"><small>送料：</small>¥{shippingFee.toLocaleString("ja-JP")}</p>
-              <p className="cart_total_contents_total"><small>合計：</small><span>¥{totalAmount.toLocaleString("ja-JP")}</span></p>
-              <div className="cart_total_contents_btn">
-                <button className="btn">レジに進む</button>
+          <div className="cart_layout">
+            <div className="cart_listBox">
+              {cartProducts.length === 0 ? (
+              <p>カートに商品がありません。</p>
+              // <Link to="/">お買い物を続ける</Link>
+              ) : (
+              <ul className="basicList">
+                {cartProducts.map((product) => (
+                <li className="basicList_list" key={product.id}>
+                  <a href={`/product/${product.id}`}>
+                    <div className="wrapper">
+                      <div className="itemLine">
+                        <div className="itemLine_img"><img src={product.image} alt={product.name} /></div>
+                        <ul className="itemLine_text">
+                          <li className="itemLine_text_title">{product.name}</li>
+                          <li className="itemLine_text_price">¥{product.price.toLocaleString("ja-JP")}</li>
+                          <li className="itemLine_text_count">
+                            <div className="quantityBtn-s">
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  updateQuantity(product.id, product.quantity - 1);
+                                }}
+                                disabled={product.quantity <= 1}
+                              >
+                                -
+                              </button>
+                              <input
+                                id={`quantity-${product.id}`}
+                                type="number"
+                                min="1"
+                                value={product.quantity}
+                                onClick={(e) => e.stopPropagation()}
+                                onChange={(e) =>
+                                  updateQuantity(product.id, Number(e.target.value))
+                                }
+                              />
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                                  updateQuantity(product.id, product.quantity + 1);
+                                }}
+                              >
+                                +
+                              </button>
+                            </div>
+                          </li>
+                          <li className="itemLine_text_btn">
+                            <button
+                              className="btn-s"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                removeFromCart(product.id);
+                              }}
+                            >削除</button>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                ))}
+              </ul>
+              )}
+            </div>
+            <div className="cart_total">
+              <div className="cart_total_contents">
+                <p className="cart_total_contents_text"><small>商品数量：</small>{totalQuantity}点</p>
+                <p className="cart_total_contents_text"><small>商品小計：</small>¥{totalPrice.toLocaleString("ja-JP")}</p>
+                <p className="cart_total_contents_text"><small>送料：</small>¥{shippingFee.toLocaleString("ja-JP")}</p>
+                <p className="cart_total_contents_total"><small>合計：</small><span>¥{totalAmount.toLocaleString("ja-JP")}</span></p>
+                <div className="cart_total_contents_btn">
+                  <a href="/purchase" className="btn">レジに進む</a>
+                </div>
               </div>
             </div>
           </div>

@@ -13,6 +13,8 @@ import Cart from './pages/Cart';
 import Login from './pages/Login';
 import MyPage from './pages/MyPage';
 import SearchResults from './pages/SearchResults';
+import Purchase from './pages/Purchase';
+import PurchaseComplete from './pages/PurchaseComplete';
 
 function App() {
   return (
@@ -31,6 +33,8 @@ function App() {
                   <Route path="/login" element={<Login />} />
                   <Route path="/mypage" element={<MyPage />} />
                   <Route path="/search" element={<SearchResults />} />
+                  <Route path="/purchase" element={<Purchase />} />
+                  <Route path="/purchase/complete" element={<PurchaseComplete />} />
                 </Routes>
             </main>
             <Footer />
