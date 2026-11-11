@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from "../../context/CartContext";
 import categories from '../../data/categories';
+import { useAuth } from "../../context/AuthContext"
 
 type NavigationProps = {
   isOpen: boolean;
@@ -12,6 +13,7 @@ export default function Navigation({
   isOpen,
   onClose,
 }: NavigationProps) {
+  const { isLoggedIn, userData, logout } = useAuth();
 
   const [keyword, setKeyword] = useState('');
   const navigate = useNavigate();
@@ -49,6 +51,8 @@ export default function Navigation({
                 <button type="submit"></button>
               </form>
             </li>
+            {isLoggedIn ? ( 
+              <>
             <li className="header-favo"><a href="/favorites"></a></li>
             <li className="header-cart">
               <a href="/cart"></a>
@@ -59,6 +63,13 @@ export default function Navigation({
                 )}
             </li>
             <li className="header-user"><a href="/mypage"></a></li>
+            </>
+            ) : (
+              <>
+              <li><a className="btn-color5" href="/Login">ログイン</a></li>
+              <li><a className="btn-color3" href="/Login?mode=register">新規登録</a></li>
+              </>
+            )}
           </ul>
           <div className="header-nav_categorySP">
             <ul>

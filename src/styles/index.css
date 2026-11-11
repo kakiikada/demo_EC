@@ -243,7 +243,8 @@ a:hover .itemLine_img img {
 .btn-color2,
 .btn-color3,
 .btn-color4,
-.btn-color5 {
+.btn-color5,
+.btn-inactive {
     display: inline-block;
     color: var(--color-bg);
     padding: 1rem 3rem;
@@ -291,6 +292,10 @@ a:hover .itemLine_img img {
     &:hover {
         background-color: var(--color-color5-light);
     }
+}
+.btn-inactive {
+    background-color: var(--color-gray);
+    pointer-events: none;
 }
 .btn-s {
     padding: 0.5rem 1rem;

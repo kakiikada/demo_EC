@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useCart } from "../context/CartContext";
 import type { OrderData } from "../types/order";
 import products from "../data/products";
+import { validateKana, validateEmail, validatePhone, validatePostalCode } from "../data/validation";
 
 const Purchase = () => {
   const [step, setStep] = useState("input");
@@ -77,28 +78,28 @@ const Purchase = () => {
     // カナ
     if (!formData.kana.trim()) {
       newErrors.kana = "フリガナを入力してください";
-    } else if (!/^[ァ-ヶー　\s]+$/.test(formData.kana)) {
+    } else if (!validateKana(formData.kana)) {
       newErrors.kana = "全角カタカナで入力してください";
     }
 
     // メールアドレス
     if (!formData.email.trim()) {
       newErrors.email = "メールアドレスを入力してください";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    } else if (!validateEmail(formData.email)) {
       newErrors.email = "正しいメールアドレスを入力してください";
     }
 
     // 電話番号
     if (!formData.phone.trim()) {
       newErrors.phone = "電話番号を入力してください";
-    } else if (!/^[0-9-]+$/.test(formData.phone)) {
+    } else if (!validatePhone(formData.phone)) {
       newErrors.phone = "電話番号は半角数字とハイフンで入力してください";
     }
 
     // 郵便番号
     if (!formData.postalCode.trim()) {
       newErrors.postalCode = "郵便番号を入力してください";
-    } else if (!/^\d{3}-?\d{4}$/.test(formData.postalCode)) {
+    } else if (!validatePostalCode(formData.postalCode)) {
       newErrors.postalCode = "郵便番号は正しい形式で入力してください";
     }
 
@@ -196,7 +197,7 @@ const Purchase = () => {
           </div>
         </div>
         <div className="wrapper">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} noValidate>
 
             {/* 購入者情報 */}
             <div className="purchase_contents">

@@ -1,9 +1,50 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import HeaderLogo from "../assets/logo-b.svg";
 type AuthMode = 'login' | 'register' | 'reset';
 
+import { initialUserData } from "../data/userData";
+import { useAuth } from "../context/AuthContext"
+// ログインテスト用アカウント情報
+const mockAccount = {
+  email: "hanako@example.com",
+  password: "test1234",
+};
+
 function Login() {
   const [mode, setMode] = useState<AuthMode>('login');
+  const [searchParams] = useSearchParams();
+  const urlMode = searchParams.get("mode");
+  useEffect(() => {
+    if (urlMode === "register") {
+      setMode("register");
+    }
+  }, [urlMode]);
+
+  const [loginData, setLoginData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const { login } = useAuth();
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (
+      loginData.email === mockAccount.email &&
+      loginData.password === mockAccount.password
+    ) {
+      login(initialUserData);
+      setErrorMessage("");
+      // ログイン成功後に背にするページURL
+      navigate("/MyPage");
+    } else {
+      setErrorMessage("メールアドレスまたはパスワードが違います。");
+    }
+  };
+
+  const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
   return (
     <div className="wrapper">
       <div className="login">
@@ -13,17 +54,47 @@ function Login() {
           {mode === 'reset' && (<>パスワード再設定</>)}
           </h1>
         <p className="login_text">Pom Plein Members</p>
-        <form action="">
+        <form onSubmit={handleLogin}>
           <div className="login_contents">
             {mode === 'login' && (
             <>
             <ul className="login_contents_list">
-              <li className="login_input"><span>E-mail</span><input type="text" /></li>
-              <li className="login_input"><span>password</span><input type="password" /></li>
+              <li className="login_input">
+                <span>E-mail</span>
+                <input
+                  type="text"
+                  name="email"
+                  value={loginData.email}
+                  onChange={(e) => {
+                    setLoginData({
+                      ...loginData,
+                      [e.target.name]: e.target.value,
+                    });
+                  }}
+                  onChange={(e) =>
+                    setLoginData({ ...loginData, email: e.target.value })
+                  }
+                 />
+              </li>
+              <li className="login_input">
+                <span>password</span>
+                <input
+                  type="password"
+                  name="password"
+                  value={loginData.password}
+                  onChange={(e) => {
+                    setLoginData({
+                      ...loginData,
+                      [e.target.name]: e.target.value,
+                    });
+                  }}
+                 />
+              </li>
             </ul>
             <div className="login_contents_btn">
-              <button className="btn-color2">ログイン</button>
+              <button type="submit" className="btn-color2">ログイン</button>
             </div>
+            <p className="error_message">{errorMessage}</p>
             <p className="login_contents_text"><button type="button" onClick={() => setMode('register')}>アカウントをお持ちでない方</button></p>
             <p className="login_contents_text"><button type="button" onClick={() => setMode('reset')}>パスワードを忘れた方</button></p>
             </>

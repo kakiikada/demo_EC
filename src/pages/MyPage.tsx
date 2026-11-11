@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import home_catch from "../assets/common/home_catch.jpg";
 import { initialUserData, type UserData } from "../data/userData";
+import { validateKana, validateEmail, validatePhone, validatePostalCode } from "../data/validation";
 import type { OrderData } from "../types/order";
+
 
 function ProductDetail() {
   const [user, setUser] = useState<UserData>(() => {
@@ -36,21 +38,27 @@ function ProductDetail() {
       newErrors.name = "氏名を入力してください。";
     }
 
+    if (!editUser.kana.trim()) {
+      newErrors.kana = "フリガナを入力してください。";
+    } else if (!validateKana(editUser.kana)) {
+      newErrors.kana = "全角カタカナで入力してください。";
+    }
+
     if (!editUser.email.trim()) {
       newErrors.email = "メールアドレスを入力してください。";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(editUser.email)) {
+    } else if (!validateEmail(editUser.email)) {
       newErrors.email = "正しいメールアドレスを入力してください。";
     }
 
     if (!editUser.phone.trim()) {
       newErrors.phone = "電話番号を入力してください。";
-    } else if (!/^[0-9-]+$/.test(editUser.phone) || editUser.phone.replace(/-/g, "").length < 10 || editUser.phone.replace(/-/g, "").length > 11) {
+    } else if (!validatePhone(editUser.phone)) {
       newErrors.phone = "正しい電話番号を入力してください。";
     }
 
     if (!editUser.postalCode.trim()) {
       newErrors.postalCode = "郵便番号を入力してください。";
-    } else if (!/^\d{3}-?\d{4}$/.test(editUser.postalCode)) {
+    } else if (!validatePostalCode(editUser.postalCode)) {
       newErrors.postalCode = "正しい郵便番号を入力してください。";
     }
 
@@ -63,20 +71,22 @@ function ProductDetail() {
     return Object.keys(newErrors).length === 0;
   };
   // 保存用トースト
-const [toast, setToast] = useState(false);
+  const [toast, setToast] = useState(false);
 
-const showToast = () => {
-  setToast(true);
+  const showToast = () => {
+    setToast(true);
 
-  setTimeout(() => {
-    setToast(false);
-  }, 1000);
-};
-// 購入履歴
-const [orders, setOrders] = useState<OrderData[]>(() => {
-  const savedOrders = localStorage.getItem("pomplein_orders");
-  return savedOrders ? JSON.parse(savedOrders) : [];
-});
+    setTimeout(() => {
+      setToast(false);
+    }, 1000);
+  };
+  // 購入履歴
+  const [orders, setOrders] = useState<OrderData[]>(() => {
+    const savedOrders = localStorage.getItem("pomplein_orders");
+    return savedOrders ? JSON.parse(savedOrders) : [];
+  });
+
+
 
   return (
       <div className="myPage">
@@ -167,6 +177,21 @@ const [orders, setOrders] = useState<OrderData[]>(() => {
                     </li>
                     <li>
                       <label className="myPage_inputBox">
+                        <p className="myPage_inputBox_title">カナ：</p>
+                        <input className="input"
+                          type="text"
+                          value={editUser.kana}
+                          onChange={(e) =>
+                            setEditUser({ ...editUser, kana: e.target.value })
+                          }
+                        />
+                      {errors.kana && (
+                          <p className="form_error">{errors.kana}</p>
+                        )}
+                      </label>
+                    </li>
+                    <li>
+                      <label className="myPage_inputBox">
                         <p className="myPage_inputBox_title">メールアドレス：</p>
                         <input className="input"
                           type="email"
@@ -248,6 +273,9 @@ const [orders, setOrders] = useState<OrderData[]>(() => {
                   <ul>
                     <li className="myPage_inputBox">
                       <p className="myPage_inputBox_title">氏名：</p>{user.name}
+                    </li>
+                    <li className="myPage_inputBox">
+                      <p className="myPage_inputBox_title">氏名：</p>{user.kana}
                     </li>
                     <li className="myPage_inputBox">
                       <p className="myPage_inputBox_title">メールアドレス：</p>{user.email}

@@ -57,7 +57,15 @@ function Cart() {
           <div className="cart_layout">
             <div className="cart_listBox">
               {cartProducts.length === 0 ? (
-              <p>カートに商品がありません。</p>
+              <ul className="basicList">
+                <li className="basicList_list">
+                  <div className="wrapper">
+                    <div className="itemLine">
+                      <p>カートに商品がありません。</p>
+                    </div>
+                  </div>
+                </li>
+              </ul>
               // <Link to="/">お買い物を続ける</Link>
               ) : (
               <ul className="basicList">
@@ -131,7 +139,11 @@ function Cart() {
                 <p className="cart_total_contents_text"><small>送料：</small>¥{shippingFee.toLocaleString("ja-JP")}</p>
                 <p className="cart_total_contents_total"><small>合計：</small><span>¥{totalAmount.toLocaleString("ja-JP")}</span></p>
                 <div className="cart_total_contents_btn">
-                  <a href="/purchase" className="btn">レジに進む</a>
+                  {cartProducts.length === 0 ? (
+                    <a href="/purchase" className="btn-inactive">レジに進む</a>
+                  ) : (
+                    <a href="/purchase" className="btn">レジに進む</a>
+                  )}
                 </div>
               </div>
             </div>
