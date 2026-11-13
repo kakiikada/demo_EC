@@ -1,11 +1,20 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
-import products from "../data/products";
+import { getProducts } from '../data/products';
+import type { Product } from '../data/products';
+import home_catch from "../assets/common/home_catch.jpg";
 import { useCart } from "../context/CartContext";
 
-import home_catch from "../assets/common/home_catch.jpg";
-
 function Cart() {
+  const [products, setProducts] = useState<Product[]>([]);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const data = await getProducts();
+      setProducts(data);
+    };
+
+    fetchProducts();
+  }, []);
   const {
     cartItems,
     updateQuantity,

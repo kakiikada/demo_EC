@@ -1,14 +1,25 @@
 import { useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
-import { useCart } from "../context/CartContext";
 import StockStatus from '../components/StockStatus';
 import FavoriteButton from '../components/FavoriteButton';
 import CartButton from "../components/CartButton";
-import products from '../data/products';
+import { getProducts } from '../data/products';
+import type { Product } from '../data/products';
+import { useCart } from "../context/CartContext";
 
 
 
 function ProductDetail() {
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const data = await getProducts();
+      setProducts(data);
+    };
+
+    fetchProducts();
+  }, []);
   const [quantity, setQuantity] = useState(1);
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,7 +36,6 @@ function ProductDetail() {
     addToCart(currentProduct.id, quantity);
     setShowToast(true);
   };
-
   return (
     <div className="wrapper">
       {currentProduct && (

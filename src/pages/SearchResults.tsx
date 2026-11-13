@@ -1,9 +1,20 @@
+import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { Link, useNavigate } from "react-router-dom";
-
-import products from '../data/products';
+import { getProducts } from '../data/products';
+import type { Product } from '../data/products';
 
 export default function SearchResults() {
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const data = await getProducts();
+      setProducts(data);
+    };
+
+    fetchProducts();
+  }, []);
   const [searchParams] = useSearchParams();
   const keyword = searchParams.get('q') || '';
 
@@ -11,46 +22,44 @@ export default function SearchResults() {
     product.name.toLowerCase().includes(keyword.toLowerCase())
   );
   return (
-
-
-      <div className="search">
-        <div className="wrapper">
-          <div className="search_header">
-            <div className="title-s">
-              <h1 className="title_text">「{keyword}」の検索結果：{filteredProducts.length}件</h1>
-            </div>
+    <div className="search">
+      <div className="wrapper">
+        <div className="search_header">
+          <div className="title-s">
+            <h1 className="title_text">「{keyword}」の検索結果：{filteredProducts.length}件</h1>
           </div>
         </div>
-        <section className="search_listBox">
-          <ul className="basicList">
-            {filteredProducts.length > 0 ? (
-              filteredProducts.map((product) => (
-                <li className="basicList_list" key={product.id}>
-                  <Link to={`/product/${product.id}`}>
-                    <div className="wrapper">
-                      <div className="itemLine">
-                        <div className="itemLine_img"><img src={product.image} alt="" /></div>
-                        <ul className="itemLine_text">
-                          <li className="itemLine_text_title">{product.name}</li>
-                          <li className="itemLine_text_text">{product.description}</li>
-                          <li className="itemLine_text_price">¥{product.price.toLocaleString("ja-JP")}</li>
-                        </ul>
-                      </div>
-                    </div>
-                  </Link>
-                </li>
-              ))
-            ) : (
-              <div className="wrapper">
-                <div className="itemLine">
-                  <p>該当する商品が見つかりませんでした。</p>
-                </div>
-              </div>
-            )}
-
-          </ul>
-        </section>
       </div>
+      <section className="search_listBox">
+        <ul className="basicList">
+          {filteredProducts.length > 0 ? (
+            filteredProducts.map((product) => (
+              <li className="basicList_list" key={product.id}>
+                <Link to={`/product/${product.id}`}>
+                  <div className="wrapper">
+                    <div className="itemLine">
+                      <div className="itemLine_img"><img src={product.image} alt="" /></div>
+                      <ul className="itemLine_text">
+                        <li className="itemLine_text_title">{product.name}</li>
+                        <li className="itemLine_text_text">{product.description}</li>
+                        <li className="itemLine_text_price">¥{product.price.toLocaleString("ja-JP")}</li>
+                      </ul>
+                    </div>
+                  </div>
+                </Link>
+              </li>
+            ))
+          ) : (
+            <div className="wrapper">
+              <div className="itemLine">
+                <p>該当する商品が見つかりませんでした。</p>
+              </div>
+            </div>
+          )}
+
+        </ul>
+      </section>
+    </div>
 
 
 

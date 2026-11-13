@@ -1,12 +1,23 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { getProducts } from '../data/products';
+import type { Product } from '../data/products';
 import { useCart } from "../context/CartContext";
-import type { OrderData } from "../types/order";
-import products from "../data/products";
 import { useAuth } from "../context/AuthContext";
+import type { OrderData } from "../types/order";
+
 import { validateKana, validateEmail, validatePhone, validatePostalCode } from "../data/validation";
 
 const Purchase = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const data = await getProducts();
+      setProducts(data);
+    };
+
+    fetchProducts();
+  }, []);
   const { isLoggedIn, userData } = useAuth();
 
 

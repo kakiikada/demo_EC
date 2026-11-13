@@ -1,10 +1,21 @@
-import home_catch from "../assets/common/home_catch.jpg";
-
+import { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
-import products from "../data/products";
-import { useFavorites } from "../context/FavoriteContext";
 import FavoriteButton from '../components/FavoriteButton';
+import { getProducts } from '../data/products';
+import type { Product } from '../data/products';
+import { useFavorites } from "../context/FavoriteContext";
+import home_catch from "../assets/common/home_catch.jpg";
 const Favorites = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const data = await getProducts();
+      setProducts(data);
+    };
+
+    fetchProducts();
+  }, []);
+
   const { favoriteIds } = useFavorites();
 
   // お気に入りIDと一致する商品だけ取り出す

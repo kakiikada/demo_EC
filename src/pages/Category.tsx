@@ -1,11 +1,25 @@
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Link, useNavigate } from "react-router-dom";
 import CategoryNav from "../components/CategoryList/CategoryNav";
 import StockStatus from '../components/StockStatus';
 import categories from '../data/categories';
-import products from '../data/products';
+import { getProducts } from '../data/products';
+import type { Product } from '../data/products';
+
 
 function Category() {
+  
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const data = await getProducts();
+      setProducts(data);
+    };
+
+    fetchProducts();
+  }, []);
   const { categoryId } = useParams();
 
   const currentCategory = categories.find(
@@ -19,6 +33,7 @@ function Category() {
   if (!currentCategory) {
     return <p>Category not found.</p>;
   }
+
   return (
     <>
       <div className="wrapper">

@@ -1,11 +1,24 @@
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import CategoryNav from "../components/CategoryList/CategoryNav";
 import StockStatus from '../components/StockStatus';
-import products from '../data/products';
 import FavoriteButton from '../components/FavoriteButton';
+import { getProducts } from '../data/products';
+import type { Product } from '../data/products';
 import home_catch from "../assets/common/home_catch.jpg";
 
 function Home() {
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const data = await getProducts();
+      setProducts(data);
+    };
+
+    fetchProducts();
+  }, []);
+  
   // 新着アイテム順に表示
   const newProducts = [...products]
   .sort((a, b) =>
@@ -14,6 +27,8 @@ function Home() {
   )
   // 上位4つ取得
   .slice(0, 8);
+
+
   return (
     <>
       <div className="home">
