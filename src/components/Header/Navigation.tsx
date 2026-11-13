@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import categories from '../../data/categories';
 import { useAuth } from "../../context/AuthContext"
@@ -53,21 +53,29 @@ export default function Navigation({
             </li>
             {isLoggedIn ? ( 
               <>
-            <li className="header-favo"><a href="/favorites"></a></li>
+            <li className="header-favo"><Link to="/favorites"></Link></li>
             <li className="header-cart">
-              <a href="/cart"></a>
+              <Link to="/cart"></Link>
 
 
                 {cartCount > 0 && (
                   <span>{cartCount > 99 ? " " : cartCount}</span>
                 )}
             </li>
-            <li className="header-user"><a href="/mypage"></a></li>
+            <li className="header-user"><Link to="/mypage"></Link></li>
             </>
             ) : (
               <>
-              <li><a className="btn-color5" href="/Login">ログイン</a></li>
-              <li><a className="btn-color3" href="/Login?mode=register">新規登録</a></li>
+              <li className="header-cart">
+              <Link to="/cart"></Link>
+
+
+                {cartCount > 0 && (
+                  <span>{cartCount > 99 ? " " : cartCount}</span>
+                )}
+            </li>
+              <li><Link className="btn-s btn-color5" to="/Login">ログイン</Link></li>
+              <li><Link className="btn-s btn-color3" to="/Login?mode=register">新規登録</Link></li>
               </>
             )}
           </ul>
@@ -79,7 +87,7 @@ export default function Navigation({
                   to={`/category/${category.id}`}
                   className={`header-nav_categorySP-${category.id}`}
                 >
-                  <a href={`/category/${category.id}`}>{category.name} <span>/ {category.label}</span></a>
+                  <Link to={`/category/${category.id}`}>{category.name} <span>/ {category.label}</span></Link>
                 </li>
               ))}
             </ul>
@@ -96,7 +104,7 @@ export default function Navigation({
               to={`/category/${category.id}`}
               className={`header-nav_categoryPC-${category.id}`}
             >
-              <a href={`/category/${category.id}`}>{category.name} <span>{category.label}</span></a>
+              <Link to={`/category/${category.id}`}>{category.name} <span>{category.label}</span></Link>
             </li>
           ))}
         </ul>

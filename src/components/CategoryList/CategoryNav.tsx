@@ -1,3 +1,4 @@
+import { Link, useNavigate } from "react-router-dom";
 import "./CategoryNav.css";
 import categories from '../../data/categories';
 
@@ -16,7 +17,7 @@ export default function CategoryNav() {
 
           {categories.map((category) => (
             <li key={category.id}>
-              <a href={`/category/${category.id}`}>
+              <Link to={`/category/${category.id}`}>
                 <div className={`categoryCard ${category.id}`}>
                   <div className="categoryCard_img">
                     <img src={category.image} alt="" />
@@ -25,7 +26,7 @@ export default function CategoryNav() {
                     <p><span>{category.name}</span><span>{category.label}</span></p>
                   </div>
                 </div>
-              </a>
+              </Link>
             </li>
           ))}
           </ul>

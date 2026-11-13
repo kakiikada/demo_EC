@@ -1,3 +1,4 @@
+import { Link, useNavigate } from "react-router-dom";
 import "./Footer.css";
 import FooterLogo from "../../assets/logo-b.svg";
 
@@ -13,9 +14,9 @@ export default function Footer() {
             <img src={FooterLogo} alt="POM PLEIN" />
           </div>
           <ul className="footer-snsList">
-            <li><a className="footer-snsList_icon footer-snsList_icon--X" href="#"><img src={sns_X} alt="X" /></a></li>
-            <li><a className="footer-snsList_icon" href="#"><img src={sns_instagram} alt="" /></a></li>
-            <li><a className="footer-snsList_icon" href="#"><img src={sns_facebook} alt="Facebook" /></a></li>
+            <li><Link className="footer-snsList_icon footer-snsList_icon--X" to="#"><img src={sns_X} alt="X" /></Link></li>
+            <li><Link className="footer-snsList_icon" to="#"><img src={sns_instagram} alt="" /></Link></li>
+            <li><Link className="footer-snsList_icon" to="#"><img src={sns_facebook} alt="Facebook" /></Link></li>
           </ul>
         </div>
       </div>

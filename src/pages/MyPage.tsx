@@ -1,11 +1,15 @@
 import { useState, useEffect } from "react";
-import home_catch from "../assets/common/home_catch.jpg";
+import { Link, useNavigate } from "react-router-dom";
 import { initialUserData, type UserData } from "../data/userData";
 import { validateKana, validateEmail, validatePhone, validatePostalCode } from "../data/validation";
 import type { OrderData } from "../types/order";
+import { useAuth } from "../context/AuthContext";
+import home_catch from "../assets/common/home_catch.jpg";
 
 
 function ProductDetail() {
+  const navigate = useNavigate();
+
   const [user, setUser] = useState<UserData>(() => {
     const savedUser = localStorage.getItem("pomplein_user");
 
@@ -23,6 +27,7 @@ function ProductDetail() {
     return initialUserData;
   });
   const [isEditing, setIsEditing] = useState(false);
+  const [isEditingPassword, setIsEditingPassword] = useState(false);
   const [editUser, setEditUser] = useState(initialUserData);
 
   useEffect(() => {
@@ -70,9 +75,9 @@ function ProductDetail() {
 
     return Object.keys(newErrors).length === 0;
   };
+  const [passwordError, setPasswordError] = useState("");
   // 保存用トースト
   const [toast, setToast] = useState(false);
-
   const showToast = () => {
     setToast(true);
 
@@ -80,13 +85,52 @@ function ProductDetail() {
       setToast(false);
     }, 1000);
   };
+  // pass
+  const [passwordData, setPasswordData] = useState({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+
+  const { checkPassword, changePassword } = useAuth();
+
+  const handlePasswordChange = (e: React.FormEvent) => {
+    e.preventDefault();
+
+  if (!checkPassword(passwordData.currentPassword)) {
+    setPasswordError("現在のパスワードが正しくありません。");
+    return;
+  }
+
+  if (passwordData.newPassword !== passwordData.confirmPassword) {
+    setPasswordError("新しいパスワードが一致しません。");
+    return;
+  }
+
+  changePassword(passwordData.newPassword);
+  setPasswordError("");
+  setPasswordData({
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
+  });
+  setIsEditingPassword(false);
+};
+
   // 購入履歴
   const [orders, setOrders] = useState<OrderData[]>(() => {
     const savedOrders = localStorage.getItem("pomplein_orders");
     return savedOrders ? JSON.parse(savedOrders) : [];
   });
 
-
+  // ログアウト
+  const { logout } = useAuth();
+  const handleLogout = () => {
+    logout();
+    console.log("ログアウト処理後");
+    navigate("/");
+    console.log("navigate実行後");
+  };
 
   return (
       <div className="myPage">
@@ -99,8 +143,8 @@ function ProductDetail() {
               <p>こんにちは、{user.name} さん。いつもご利用ありがとうございます。</p>
             </div>
             <ul className="myPage_header_link">
-              <li><a className="btn-favo-default" href="/favorites">お気に入り</a></li>
-              <li><a className="btn" href="/cart">カート</a></li>
+              <li><Link className="btn-favo-default" to="/favorites">お気に入り</Link></li>
+              <li><Link className="btn" to="/cart">カート</Link></li>
             </ul>
           </div>
         </div>
@@ -170,10 +214,10 @@ function ProductDetail() {
                             setEditUser({ ...editUser, name: e.target.value })
                           }
                         />
+                      </label>
                       {errors.name && (
                           <p className="form_error">{errors.name}</p>
                         )}
-                      </label>
                     </li>
                     <li>
                       <label className="myPage_inputBox">
@@ -200,10 +244,10 @@ function ProductDetail() {
                             setEditUser({ ...editUser, email: e.target.value })
                           }
                         />
-                        {errors.email && (
-                          <p className="form_error">{errors.email}</p>
-                        )}
                       </label>
+                      {errors.email && (
+                        <p className="form_error">{errors.email}</p>
+                      )}
                     </li>
                     <li>
                       <label className="myPage_inputBox">
@@ -215,10 +259,10 @@ function ProductDetail() {
                             setEditUser({ ...editUser, phone: e.target.value })
                           }
                         />
-                        {errors.phone && (
-                          <p className="form_error">{errors.phone}</p>
-                        )}
                       </label>
+                      {errors.phone && (
+                        <p className="form_error">{errors.phone}</p>
+                      )}
                     </li>
                     <li className="myPage_inputwrapper">
                       <p className="myPage_inputwrapper_title">住所：</p>
@@ -233,10 +277,10 @@ function ProductDetail() {
                                 setEditUser({ ...editUser, postalCode: e.target.value })
                               }
                             />
-                            {errors.postalCode && (
-                              <p className="form_error">{errors.postalCode}</p>
-                            )}
                           </label>
+                          {errors.postalCode && (
+                            <p className="form_error">{errors.postalCode}</p>
+                          )}
                         </li>
                         <li>
                           <label className="myPage_inputBox">
@@ -248,10 +292,10 @@ function ProductDetail() {
                                 setEditUser({ ...editUser, address: e.target.value })
                               }
                             />
-                            {errors.address && (
-                              <p className="form_error">{errors.address}</p>
-                            )}
                           </label>
+                          {errors.address && (
+                            <p className="form_error">{errors.address}</p>
+                          )}
                         </li>
                         <li>
                           <label className="myPage_inputBox">
@@ -301,6 +345,144 @@ function ProductDetail() {
                 )}
               </div>
             </div>
+
+
+            <form onSubmit={handlePasswordChange}>
+              <div className="myPage_userData_header space-lm">
+                <h2 className="myPage_userData_header_title">パスワード</h2>
+                <div>
+                  {/* <div className={`myPage_toast ${toast ? "active" : ""}`}>
+                    <p>パスワードを更新しました。</p>
+                  </div> */}
+                  {isEditingPassword ? (
+                  <div className="myPage_userData_header_buttons">
+                    <button
+                      type="submit"
+                      className="btn"
+                    >
+                      保存する
+                    </button>
+                    <button
+                      type="button"
+                      className="btn-favo-default"
+                      onClick={() => {
+                        setIsEditingPassword(false);
+                        setPasswordData({
+                          currentPassword: "",
+                          newPassword: "",
+                          confirmPassword: "",
+                        });
+                        setPasswordError("");
+                      }}
+                    >
+                      キャンセル
+                    </button>
+                  </div>
+
+                  ) : (
+                  <>
+                    <button
+                      type="button"
+                      className="btn"
+                      onClick={() => setIsEditingPassword(true)}
+                    >
+                      パスワードを変更する
+                    </button>
+                  </>
+                  )}
+                </div>
+              </div>
+              <div className="myPage_userData_text">
+                <div className="contentBox">                
+                  {isEditingPassword ? (
+                  <ul>
+                    <li>
+                      <label className="myPage_inputBox">
+                        <p className="myPage_inputBox_title">現在のパスワード：</p>
+                        <input
+                          className="input"
+                          type="password"
+                          value={passwordData.currentPassword}
+                          onChange={(e) =>
+                            setPasswordData({
+                              ...passwordData,
+                              currentPassword: e.target.value,
+                            })
+                          }
+                        />
+                      </label>
+                    </li>
+                    <li>
+                      <label className="myPage_inputBox">
+                        <p className="myPage_inputBox_title">新しいパスワード：</p>
+                        <input
+                          className="input"
+                          type="password"
+                          value={passwordData.newPassword}
+                          onChange={(e) =>
+                            setPasswordData({
+                              ...passwordData,
+                              newPassword: e.target.value,
+                            })
+                          }
+                        />
+                      </label>
+                    </li>
+                    <li>
+                      <label className="myPage_inputBox">
+                        <p className="myPage_inputBox_title">新しいパスワード（確認用）：</p>
+                        <input
+                          className="input"
+                          type="password"
+                          value={passwordData.confirmPassword}
+                          onChange={(e) =>
+                            setPasswordData({
+                              ...passwordData,
+                              confirmPassword: e.target.value,
+                            })
+                          }
+                        />
+                      </label>
+                      {passwordError && (
+                        <p className="form_error">{passwordError}</p>
+                      )}
+                    </li>
+                  </ul>
+                  ) : (
+                  <ul>
+                    <li className="myPage_inputBox">
+                      <p className="myPage_inputBox_title">パスワード：</p>＊＊＊＊
+                    </li>
+                  </ul>
+                  )}
+                </div>
+              </div>
+            </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           </section>
         </div>
         <section className="myPage_order">
@@ -327,7 +509,7 @@ function ProductDetail() {
                   <ul className="basicList">
                     {order.items.map((item) => (
                     <li className="basicList_list" key={item.id}>
-                      <a href={`/item/${item.id}`}>
+                      <Link to={`/item/${item.id}`}>
                         <div className="wrapper">
                           <div className="itemLine">
                             <div className="itemLine_img"><img src={item.image} alt={item.name} /></div>
@@ -339,7 +521,7 @@ function ProductDetail() {
                             </ul>
                           </div>
                         </div>
-                      </a>
+                      </Link>
                     </li>
                     ))}
                   </ul>
@@ -355,7 +537,13 @@ function ProductDetail() {
         </section>
         <div className="wrapper">
           <div className="myPage_logout">
-            <a className="btn" href="/login">ログアウト</a>
+            <button
+              className="btn"
+              type="button"
+              onClick={handleLogout}
+            >
+              ログアウト
+            </button>
           </div>
         </div>
       </div>

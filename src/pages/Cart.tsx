@@ -71,7 +71,7 @@ function Cart() {
               <ul className="basicList">
                 {cartProducts.map((product) => (
                 <li className="basicList_list" key={product.id}>
-                  <a href={`/product/${product.id}`}>
+                  <Link to={`/product/${product.id}`}>
                     <div className="wrapper">
                       <div className="itemLine">
                         <div className="itemLine_img"><img src={product.image} alt={product.name} /></div>
@@ -126,7 +126,7 @@ function Cart() {
                         </ul>
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 </li>
                 ))}
               </ul>
@@ -140,9 +140,9 @@ function Cart() {
                 <p className="cart_total_contents_total"><small>合計：</small><span>¥{totalAmount.toLocaleString("ja-JP")}</span></p>
                 <div className="cart_total_contents_btn">
                   {cartProducts.length === 0 ? (
-                    <a href="/purchase" className="btn-inactive">レジに進む</a>
+                    <Link to="/purchase" className="btn-inactive">レジに進む</Link>
                   ) : (
-                    <a href="/purchase" className="btn">レジに進む</a>
+                    <Link to="/purchase" className="btn">レジに進む</Link>
                   )}
                 </div>
               </div>

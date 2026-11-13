@@ -1,4 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
+
 import products from '../data/products';
 
 export default function SearchResults() {
@@ -24,7 +26,7 @@ export default function SearchResults() {
             {filteredProducts.length > 0 ? (
               filteredProducts.map((product) => (
                 <li className="basicList_list" key={product.id}>
-                  <a href={`/product/${product.id}`}>
+                  <Link to={`/product/${product.id}`}>
                     <div className="wrapper">
                       <div className="itemLine">
                         <div className="itemLine_img"><img src={product.image} alt="" /></div>
@@ -35,7 +37,7 @@ export default function SearchResults() {
                         </ul>
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 </li>
               ))
             ) : (

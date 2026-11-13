@@ -36,7 +36,7 @@ const Favorites = () => {
         <ul className="basicList">
           {favoriteProducts.map((product) => (
           <li className="basicList_list" key={product.id}>
-            <a href={`/product/${product.id}`}>
+            <Link to={`/product/${product.id}`}>
               <div className="wrapper">
                 <div className="itemLine">
                   <div className="itemLine_img"><img src={product.image} alt={product.name} /></div>
@@ -53,7 +53,7 @@ const Favorites = () => {
                   </ul>
                 </div>
               </div>
-            </a>
+            </Link>
           </li>
           ))}
         </ul>

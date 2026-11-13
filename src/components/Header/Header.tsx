@@ -1,6 +1,7 @@
 
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./Header.css";
 import HeaderLogo from "../../assets/logo-b.svg";
 import HeaderLogo_w from "../../assets/logo-w.svg";
@@ -48,9 +49,9 @@ export default function Header() {
     >
         <div className="header-layout">
           <div className="header-layout_left">
-            <h1><a href="/">
+            <h1><Link to="/">
               <img src={currentLogo} alt="POM PLEIN" />
-            </a></h1>
+            </Link></h1>
           </div>
           <Navigation
             isOpen={isOpen}

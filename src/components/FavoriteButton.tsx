@@ -1,16 +1,22 @@
 import { useFavorites } from "../context/FavoriteContext";
+import { useAuth } from "../context/AuthContext"
 
 interface FavoriteButtonProps {
   productId: string;
   variant?: "default" | "compact" | "icon";
 }
 
+
 const FavoriteButton = ({
   productId,
   variant = "default",
- }: FavoriteButtonProps) => {
+}: FavoriteButtonProps) => {
   const { toggleFavorite, isFavorite } = useFavorites();
   const active = isFavorite(productId);
+  const { isLoggedIn } = useAuth();
+  if (!isLoggedIn) {
+    return null;
+  }
 
   return (
     <button

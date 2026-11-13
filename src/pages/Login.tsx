@@ -8,8 +8,7 @@ import { initialUserData } from "../data/userData";
 import { useAuth } from "../context/AuthContext"
 // ログインテスト用アカウント情報
 const mockAccount = {
-  email: "hanako@example.com",
-  password: "test1234",
+  email: "hanako@example.com"
 };
 
 function Login() {
@@ -27,12 +26,12 @@ function Login() {
     password: "",
   });
 
-  const { login } = useAuth();
+  const { login, checkPassword } = useAuth();
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     if (
       loginData.email === mockAccount.email &&
-      loginData.password === mockAccount.password
+      checkPassword(loginData.password)
     ) {
       login(initialUserData);
       setErrorMessage("");

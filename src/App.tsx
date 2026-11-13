@@ -16,6 +16,8 @@ import MyPage from './pages/MyPage';
 import SearchResults from './pages/SearchResults';
 import Purchase from './pages/Purchase';
 import PurchaseComplete from './pages/PurchaseComplete';
+import ScrollToTop from './components/ScrollToTop';
+import RequireAuth from './components/RequireAuth';
 
 function App() {
   return (
@@ -24,19 +26,23 @@ function App() {
         <AuthProvider>
           <FavoriteProvider>
             <CartProvider>
+              <ScrollToTop />
               <Header />
               <main>
                   <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/category/:categoryId" element={<Category />} />
                     <Route path="/product/:productId" element={<ProductDetail />} />
-                    <Route path="/favorites" element={<Favorites />} />
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/login" element={<Login />} />
-                    <Route path="/mypage" element={<MyPage />} />
                     <Route path="/search" element={<SearchResults />} />
                     <Route path="/purchase" element={<Purchase />} />
                     <Route path="/purchase/complete" element={<PurchaseComplete />} />
+                    {/* ログイン時のみ表示されるページ */}
+                    <Route element={<RequireAuth />}>
+                      <Route path="/mypage" element={<MyPage />} />
+                      <Route path="/favorites" element={<Favorites />} />
+                    </Route>
                   </Routes>
               </main>
               <Footer />

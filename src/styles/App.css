@@ -206,12 +206,14 @@ main {
                 gap: var(--space-m);
             }
         }
+        
         .myPage_userData_text {
             line-height: 1rem;
             margin-top: var(--space-lm);
             li {
                 min-height: 3rem;
                 display: flex;
+                flex-wrap: wrap;
                 align-items: center;
                 & + li {
                     border-top: 1px solid var(--color-text-light);
@@ -256,10 +258,13 @@ main {
             }
         }
         .form_error {
+            text-align: right;
+            width: 100%;
             margin-left: var(--space-m);
             color: var(--color-danger);
             font-size: 12px;
             margin-top: 4px;
+            padding-bottom: var(--space-s);
             @media screen and (max-width: 768px) {
                 margin-left: 0;
                 width: 100%;

@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import type { OrderData } from "../types/order";
 import products from "../data/products";
+import { useAuth } from "../context/AuthContext";
 import { validateKana, validateEmail, validatePhone, validatePostalCode } from "../data/validation";
 
 const Purchase = () => {
+  const { isLoggedIn, userData } = useAuth();
+
+
   const [step, setStep] = useState("input");
   useEffect(() => {
     window.scrollTo({
@@ -13,34 +18,20 @@ const Purchase = () => {
     });
   }, [step]);
 
-  const [formData, setFormData] = useState(() => {
-    const savedUser = localStorage.getItem("pomplein_user");
-
-    let user = {};
-
-    if (savedUser) {
-      try {
-        user = JSON.parse(savedUser);
-      } catch {
-        user = {};
-      }
-    }
-
-    return {
-      name: user.name || "",
-      kana: user.kana || "",
-      email: user.email || "",
-      phone: user.phone || "",
-      postalCode: user.postalCode || "",
-      address: user.address || "",
-      building: user.building || "",
+    const [formData, setFormData] = useState(() => ({
+      name: isLoggedIn ? userData?.name || "" : "",
+      kana: isLoggedIn ? userData?.kana || "" : "",
+      email: isLoggedIn ? userData?.email || "" : "",
+      phone: isLoggedIn ? userData?.phone || "" : "",
+      postalCode: isLoggedIn ? userData?.postalCode || "" : "",
+      address: isLoggedIn ? userData?.address || "" : "",
+      building: isLoggedIn ? userData?.building || "" : "",
       deliveryDate: "",
       deliveryTime: "",
       payment: "credit",
       note: "",
       agree: false,
-    };
-  });
+    }));
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleChange = (
@@ -615,12 +606,12 @@ const Purchase = () => {
               <p>ご注文内容はマイページからご確認いただけます。</p>
             </div>
             <div className="purchase_submit">
-              <a
+              <Link
                 className="btn"
-                href="/"
+                to="/"
               >
                 TOPへ戻る
-              </a>
+              </Link>
             </div>
 
           </div>

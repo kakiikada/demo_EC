@@ -1,3 +1,4 @@
+import { Link, useNavigate } from "react-router-dom";
 import CategoryNav from "../components/CategoryList/CategoryNav";
 import StockStatus from '../components/StockStatus';
 import products from '../data/products';
@@ -35,7 +36,7 @@ function Home() {
                 <ul className="basicGrid_list">
                 {newProducts.map((product) => (
                   <li key={product.id}>
-                    <a href={`/product/${product.id}`}>
+                    <Link to={`/product/${product.id}`}>
                       <div className="itemCard">
                         <div className="itemCard_img">
                           <img src={product.image} alt={product.name} />
@@ -52,7 +53,7 @@ function Home() {
                           <p className="itemCard_text_price">¥{product.price.toLocaleString("ja-JP")}</p>
                         </div>
                       </div>
-                    </a>
+                    </Link>
                   </li>
                 ))}
                 </ul>

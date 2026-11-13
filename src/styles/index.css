@@ -52,6 +52,13 @@
     --space-ll: 5rem;
   }
 
+.space-ss { margin-top: var(  --space-ss);}
+.space-s { margin-top: var(  --space-s);}
+.space-m { margin-top: var(  --space-m);}
+.space-lm { margin-top: var(  --space-lm);}
+.space-l { margin-top: var(  --space-l);}
+.space-ll { margin-top: var(  --space-ll);}
+
   --transition: .3s;
   --bg-template: no-repeat center/75% ;
 
@@ -298,6 +305,7 @@ a:hover .itemLine_img img {
     pointer-events: none;
 }
 .btn-s {
+    font-size: 0.75rem;
     padding: 0.5rem 1rem;
     border-radius: 0.25rem;
     @media screen and (max-width: 768px) {
