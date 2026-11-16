@@ -7,3 +7,15 @@ export const supabase = createClient(
   supabaseUrl,
   supabasePublishableKey
 );
+// パスワード確認専用のSupabaseクライアント
+export const supabaseAuthCheck = createClient(
+  supabaseUrl,
+  supabasePublishableKey,
+  {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false,
+      detectSessionInUrl: false,
+    },
+  }
+);

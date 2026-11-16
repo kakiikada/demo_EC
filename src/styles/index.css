@@ -70,6 +70,13 @@
       }
   }
 }
+.error_message {
+    font-size: 12px;
+    color: var(--color-danger);
+}
+.note_message {
+    color: var(--color-text-light);
+}
 
 html, body{
   max-width: 100%;

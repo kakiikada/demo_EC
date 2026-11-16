@@ -209,52 +209,22 @@ main {
         
         .myPage_userData_text {
             line-height: 1rem;
-            margin-top: var(--space-lm);
-            li {
+            margin-top: var(--space-m);
+            li,
+            .myPage_userData_text_line {
                 min-height: 3rem;
                 display: flex;
                 flex-wrap: wrap;
                 align-items: center;
-                & + li {
+                & + & {
                     border-top: 1px solid var(--color-text-light);
                 }
             }
-            .myPage_inputBox {
+            .myPage_userData_text_btn {
                 display: flex;
-                flex-wrap: nowrap;
-                align-items: center;
-                width: 100%;
-                @media screen and (max-width: 360px) {
-                    flex-wrap: wrap;
-                }
-                .myPage_inputBox_title {
-                    min-width: 14rem;
-                    @media screen and (max-width: 768px) {
-                        min-width: 10rem;
-                    }
-                }
-            }
-            .myPage_inputwrapper {
-                display: flex;
-                width: 100%;
-                .myPage_inputwrapper_title {
-                    margin-top: 1rem;
-                    min-height: 3rem;
-                    min-width: 4rem;
-                    align-self: flex-start;
-                    @media screen and (max-width: 768px) {
-                        min-width: 3rem;
-                    } 
-                }
-                .myPage_inputBox_title {
-                    min-width: 10rem;
-                    @media screen and (max-width: 768px) {
-                        min-width: 7rem;
-                    } 
-                }
-                .myPage_inputwrapper_data {
-                    flex-grow: 1;
-                }
+                gap: var(--space-m);
+                justify-content: center;
+                margin-top: var(--space-m);
             }
         }
         .form_error {
@@ -271,9 +241,48 @@ main {
             } 
         }
     }
-    .myPage_logout {
+    .myPage_otherArea {
         margin-top: var(--space-lm);
-        text-align: center;
+        display: flex;
+        gap: var(--space-m);
+        justify-content: flex-end;
+    }
+    .myPage_inputBox {
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        width: 100%;
+        @media screen and (max-width: 360px) {
+            flex-wrap: wrap;
+        }
+        .myPage_inputBox_title {
+            min-width: 14rem;
+            @media screen and (max-width: 768px) {
+                min-width: 10rem;
+            }
+        }
+    }
+    .myPage_inputwrapper {
+        display: flex;
+        width: 100%;
+        .myPage_inputwrapper_title {
+            margin-top: 1rem;
+            min-height: 3rem;
+            min-width: 4rem;
+            align-self: flex-start;
+            @media screen and (max-width: 768px) {
+                min-width: 3rem;
+            } 
+        }
+        .myPage_inputBox_title {
+            min-width: 10rem;
+            @media screen and (max-width: 768px) {
+                min-width: 7rem;
+            } 
+        }
+        .myPage_inputwrapper_data {
+            flex-grow: 1;
+        }
     }
     .myPage_toast {
         position: relative;
@@ -555,4 +564,16 @@ main {
         font-size: 0.75rem;
         color: var(--color-danger);
     }
+}
+.myPage_deleteModal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.5);
 }

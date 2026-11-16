@@ -29,21 +29,21 @@ function App() {
               <ScrollToTop />
               <Header />
               <main>
-                  <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/category/:categoryId" element={<Category />} />
-                    <Route path="/product/:productId" element={<ProductDetail />} />
-                    <Route path="/cart" element={<Cart />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/search" element={<SearchResults />} />
-                    <Route path="/purchase" element={<Purchase />} />
-                    <Route path="/purchase/complete" element={<PurchaseComplete />} />
-                    {/* ログイン時のみ表示されるページ */}
-                    <Route element={<RequireAuth />}>
-                      <Route path="/mypage" element={<MyPage />} />
-                      <Route path="/favorites" element={<Favorites />} />
-                    </Route>
-                  </Routes>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/category/:categoryId" element={<Category />} />
+                  <Route path="/product/:productId" element={<ProductDetail />} />
+                  <Route path="/cart" element={<Cart />} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/search" element={<SearchResults />} />
+                  <Route path="/purchase" element={<Purchase />} />
+                  <Route path="/purchase/complete" element={<PurchaseComplete />} />
+                  {/* ログイン時のみ表示されるページ */}
+                  <Route element={<RequireAuth />}>
+                    <Route path="/mypage" element={<MyPage />} />
+                    <Route path="/favorites" element={<Favorites />} />
+                  </Route>
+                </Routes>
               </main>
               <Footer />
             </CartProvider>

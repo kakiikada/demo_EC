@@ -3,13 +3,8 @@ import { useSearchParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import HeaderLogo from "../assets/logo-b.svg";
 type AuthMode = 'login' | 'register' | 'reset';
-
-import { initialUserData } from "../data/userData";
 import { useAuth } from "../context/AuthContext"
-// ログインテスト用アカウント情報
-const mockAccount = {
-  email: "hanako@example.com"
-};
+import { supabase } from "../lib/supabase";
 
 function Login() {
   const [mode, setMode] = useState<AuthMode>('login');
@@ -26,20 +21,85 @@ function Login() {
     password: "",
   });
 
-  const { login, checkPassword } = useAuth();
-  const handleLogin = (e: React.FormEvent) => {
+  const [registerData, setRegisterData] = useState({
+    email: "",
+    password: "",
+    name: "",
+    kana: "",
+    phone: "",
+    postalCode: "",
+    address: "",
+    building: "",
+  });
+
+
+  const { login } = useAuth();
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (
-      loginData.email === mockAccount.email &&
-      checkPassword(loginData.password)
-    ) {
-      login(initialUserData);
+
+    try {
+      await login(loginData.email, loginData.password);
+
       setErrorMessage("");
-      // ログイン成功後に背にするページURL
       navigate("/MyPage");
-    } else {
+    } catch (error) {
+      console.error("ログインエラー:", error);
       setErrorMessage("メールアドレスまたはパスワードが違います。");
     }
+  };
+
+  const handleRegister = async () => {
+    const { data, error } = await supabase.auth.signUp({
+      email: registerData.email,
+      password: registerData.password,
+    });
+
+    if (error) {
+      console.error("新規登録エラー:", error);
+      setErrorMessage(error.message);
+      return;
+    }
+    if (!data.user) {
+      setErrorMessage("ユーザー登録に失敗しました。");
+      return;
+    }
+
+    const { error: profileError } = await supabase
+      .from("profiles")
+      .insert({
+        id: data.user.id,
+        name: registerData.name,
+        kana: registerData.kana,
+        phone: registerData.phone,
+        postal_code: registerData.postalCode,
+        address: registerData.address,
+        building: registerData.building,
+      });
+
+    if (profileError) {
+      console.error("プロフィール登録エラー:", profileError);
+      setErrorMessage("プロフィール情報の登録に失敗しました。");
+      return;
+    }
+    // 登録後、自動ログイン状態を解除
+    await supabase.auth.signOut();
+
+    setErrorMessage("");
+    setMode("login");
+    setLoginData({
+      email: registerData.email,
+      password: "",
+    });
+    setRegisterData({
+      email: "",
+      password: "",
+      name: "",
+      kana: "",
+      phone: "",
+      postalCode: "",
+      address: "",
+      building: "",
+    });
   };
 
   const [errorMessage, setErrorMessage] = useState("");
@@ -101,11 +161,127 @@ function Login() {
             {mode === 'register' && (
               <>
             <ul className="login_contents_list">
-              <li className="login_input"><span>E-mail</span><input type="text" /></li>
-              <li className="login_input"><span>password</span><input type="password" /></li>
+              <li className="login_input">
+                <span>E-mail</span>
+                <input
+                  type="text"
+                  name="email"
+                  value={registerData.email}
+                  onChange={(e) =>
+                    setRegisterData({
+                      ...registerData,
+                      email: e.target.value,
+                    })
+                  }
+                />
+              </li>
+              <li className="login_input">
+                <span>password</span>
+                <input
+                  type="password"
+                  name="password"
+                  value={registerData.password}
+                  onChange={(e) =>
+                    setRegisterData({
+                      ...registerData,
+                      password: e.target.value,
+                    })
+                  }
+                />
+              </li>
+              <li className="login_input">
+                <span>氏名</span>
+                <input
+                  type="text"
+                  name="name"
+                  value={registerData.name}
+                  onChange={(e) =>
+                    setRegisterData({
+                      ...registerData,
+                      name: e.target.value,
+                    })
+                  }
+                />
+              </li>
+              <li className="login_input">
+                <span>氏名（カナ）</span>
+                <input
+                  type="text"
+                  name="kana"
+                  value={registerData.kana}
+                  onChange={(e) =>
+                    setRegisterData({
+                      ...registerData,
+                      kana: e.target.value,
+                    })
+                  }
+                />
+              </li>
+              <li className="login_input">
+                <span>電話番号</span>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={registerData.phone}
+                  onChange={(e) =>
+                    setRegisterData({
+                      ...registerData,
+                      phone: e.target.value,
+                    })
+                  }
+                />
+              </li>
+              <li className="login_input">
+                <span>住所-郵便番号</span>
+                <input
+                  type="text"
+                  name="postalCode"
+                  value={registerData.postalCode}
+                  onChange={(e) =>
+                    setRegisterData({
+                      ...registerData,
+                      postalCode: e.target.value,
+                    })
+                  }
+                />
+              </li>
+              <li className="login_input">
+                <span>住所（番地まで）</span>
+                <input
+                  type="text"
+                  name="address"
+                  value={registerData.address}
+                  onChange={(e) =>
+                    setRegisterData({
+                      ...registerData,
+                      address: e.target.value,
+                    })
+                  }
+                />
+              </li>
+              <li className="login_input">
+                <span>建物名・部屋番号</span>
+                <input
+                  type="text"
+                  name="building"
+                  value={registerData.building}
+                  onChange={(e) =>
+                    setRegisterData({
+                      ...registerData,
+                      building: e.target.value,
+                    })
+                  }
+                />
+              </li>
             </ul>
             <div className="login_contents_btn">
-              <button className="btn-color1">新規登録</button>
+              <button
+                type="button"
+                className="btn-color1"
+                onClick={handleRegister}
+              >
+                新規登録
+              </button>
             </div>
             <p className="login_contents_text"><button type="button" onClick={() => setMode('login')}>アカウントをお持ちの場合</button></p>
             </>
@@ -123,6 +299,7 @@ function Login() {
             </div>
             </>
             )}
+            <p className="note_message">※当サイトはデモサイトですがデータベースに記載内容が保存されます。実際の個人情報・メールアドレス・パスワードなどは入力しないでください。</p>
           </div>
         </form>
         <img className="login_logo" src={HeaderLogo} alt="POM PLEIN" />
