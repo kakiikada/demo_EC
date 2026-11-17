@@ -13,6 +13,8 @@ function Login() {
   useEffect(() => {
     if (urlMode === "register") {
       setMode("register");
+    } else {
+      setMode("login");
     }
   }, [urlMode]);
 
@@ -41,7 +43,7 @@ function Login() {
       await login(loginData.email, loginData.password);
 
       setErrorMessage("");
-      navigate("/MyPage");
+      navigate("/");
     } catch (error) {
       console.error("ログインエラー:", error);
       setErrorMessage("メールアドレスまたはパスワードが違います。");

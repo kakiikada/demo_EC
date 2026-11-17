@@ -74,7 +74,7 @@ export default function Navigation({
                   <span>{cartCount > 99 ? " " : cartCount}</span>
                 )}
             </li>
-              <li><Link className="btn-s btn-color5" to="/Login">ログイン</Link></li>
+              <li><Link className="btn-s btn-color5" to="/Login?mode=login">ログイン</Link></li>
               <li><Link className="btn-s btn-color3" to="/Login?mode=register">新規登録</Link></li>
               </>
             )}
