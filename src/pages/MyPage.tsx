@@ -82,7 +82,7 @@ function MyPage() {
 
     setTimeout(() => {
       setToast(false);
-    }, 1000);
+    }, 3000);
   };
 
   // pass
@@ -229,6 +229,8 @@ function MyPage() {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   // 退会時のパスワード
   const [deletePassword, setDeletePassword] = useState("");
+  // デモアカウントのパスワード変更を禁止
+  const isPublicDemoAccount = user?.email === "aaa@aaa.com";
 
   return (
       <div className="myPage">
@@ -434,7 +436,7 @@ function MyPage() {
                       <p className="myPage_inputBox_title">メールアドレス：</p>{user.email}
                     </li>
                   </ul>
-                  <p className="note_message">※セキュリティ上の理由により、登録後のメールアドレス変更には対応しておりません (存在しないメールアドレスでも登録可能な仕様にしたいが、メールアドレスの再設定にメールの送信が必要となるため)。<br />誤って実際に使用しているメールアドレスを登録した場合は、アカウントを削除のうえ、テスト用のメールアドレスで再登録してください。</p>
+                  <p className="note_message">※セキュリティ上の理由により、登録後のメールアドレス変更には対応しておりません (存在しないメールアドレスでも登録可能な仕様にしたいが、メールアドレスの再設定にメールの送信が必要となるため)。<br />誤って実際に使用しているメールアドレスを登録した場合は、アカウントを削除のうえ、架空のメールアドレスで再登録してください。</p>
                 </div>
               </div>
 
@@ -446,7 +448,11 @@ function MyPage() {
                     <div className={`myPage_toast ${toast && toastTarget === "password" ? "active" : ""}`}>
                       <p>{toastMessage}</p>
                     </div>
-                    {isEditingPassword ? (
+                  {isPublicDemoAccount ? (
+                    <p className="note_message">
+                      公開用テストアカウントのため、パスワードは変更できません。
+                    </p>
+                  ) : isEditingPassword ? (
                     <div className="myPage_userData_header_buttons">
                       <button
                         type="submit"

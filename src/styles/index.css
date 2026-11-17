@@ -75,7 +75,9 @@
     color: var(--color-danger);
 }
 .note_message {
+    font-size: 12px;
     color: var(--color-text-light);
+    text-align: left;
 }
 
 html, body{

@@ -415,7 +415,7 @@ main {
     }
     .login_contents {
         color: var(--color-bg);
-        width: 28rem;
+        width: 35rem;
         max-width: 100%;
         margin: var(--space-lm) auto;
         padding: var(--space-lm);
@@ -444,7 +444,7 @@ main {
         width: 100%;
         span {
             display: inline-block;
-            min-width: 7rem;
+            min-width: 9rem;
             text-align: justify;
             flex-shrink: 1;
         }
