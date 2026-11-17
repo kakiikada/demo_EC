@@ -1,17 +1,15 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import type { UserData } from "../data/userData";
-import { validateKana, validateEmail, validatePhone, validatePostalCode } from "../data/validation";
+import { validateKana, validatePhone, validatePostalCode } from "../data/validation";
 import type { OrderData } from "../types/order";
 import { useAuth } from "../context/AuthContext";
 import { supabase } from "../lib/supabase";
-import home_catch from "../assets/common/home_catch.jpg";
 
 
 function MyPage() {
   const {
     userData: user,
-    userId,
     changePassword,
     verifyPassword,
     updateProfile,
@@ -32,6 +30,8 @@ function MyPage() {
   // エラー
   const [errors, setErrors] = useState<Partial<Record<keyof UserData, string>>>({});
   const validateUser = () => {
+    if (!editUser) return false;
+
     const newErrors: Partial<Record<keyof UserData, string>> = {};
 
     if (!editUser.name.trim()) {
@@ -200,7 +200,7 @@ function MyPage() {
 
 
   // 購入履歴
-  const [orders, setOrders] = useState<OrderData[]>(() => {
+  const [orders] = useState<OrderData[]>(() => {
     const savedOrders = localStorage.getItem("pomplein_orders");
     return savedOrders ? JSON.parse(savedOrders) : [];
   });
@@ -305,9 +305,11 @@ function MyPage() {
                           <p className="myPage_inputBox_title">氏名：</p>
                           <input className="input"
                             type="text"
-                            value={editUser.name}
+                            value={editUser?.name ?? ""}
                             onChange={(e) =>
-                              setEditUser({ ...editUser, name: e.target.value })
+                              setEditUser((prev) =>
+                                prev ? { ...prev, name: e.target.value } : prev
+                              )
                             }
                           />
                         </label>
@@ -320,9 +322,11 @@ function MyPage() {
                           <p className="myPage_inputBox_title">カナ：</p>
                           <input className="input"
                             type="text"
-                            value={editUser.kana}
+                            value={editUser?.kana ?? ""}
                             onChange={(e) =>
-                              setEditUser({ ...editUser, kana: e.target.value })
+                              setEditUser((prev) =>
+                                prev ? { ...prev, kana: e.target.value } : prev
+                              )
                             }
                           />
                         </label>
@@ -335,9 +339,11 @@ function MyPage() {
                           <p className="myPage_inputBox_title">電話番号：</p>
                           <input className="input"
                             type="tel"
-                            value={editUser.phone}
+                            value={editUser?.phone ?? ""}
                             onChange={(e) =>
-                              setEditUser({ ...editUser, phone: e.target.value })
+                              setEditUser((prev) =>
+                                prev ? { ...prev, phone: e.target.value } : prev
+                              )
                             }
                           />
                         </label>
@@ -353,9 +359,11 @@ function MyPage() {
                               <p className="myPage_inputBox_title">郵便番号：</p>
                               <input className="input"
                                 type="text"
-                                value={editUser.postalCode}
+                                value={editUser?.postalCode ?? ""}
                                 onChange={(e) =>
-                                  setEditUser({ ...editUser, postalCode: e.target.value })
+                                  setEditUser((prev) =>
+                                prev ? { ...prev, postalCode: e.target.value } : prev
+                              )
                                 }
                               />
                             </label>
@@ -368,9 +376,11 @@ function MyPage() {
                               <p className="myPage_inputBox_title">住所（番地まで）：</p>
                               <input className="input"
                                 type="text"
-                                value={editUser.address}
+                                value={editUser?.address ?? ""}
                                 onChange={(e) =>
-                                  setEditUser({ ...editUser, address: e.target.value })
+                                  setEditUser((prev) =>
+                                prev ? { ...prev, address: e.target.value } : prev
+                              )
                                 }
                               />
                             </label>
@@ -383,9 +393,11 @@ function MyPage() {
                               <p className="myPage_inputBox_title">建物名・部屋番号：</p>
                               <input className="input"
                                 type="text"
-                                value={editUser.building}
+                                value={editUser?.building ?? ""}
                                 onChange={(e) =>
-                                  setEditUser({ ...editUser, building: e.target.value })
+                                  setEditUser((prev) =>
+                                prev ? { ...prev, building: e.target.value } : prev
+                              )
                                 }
                               />
                             </label>
@@ -397,25 +409,25 @@ function MyPage() {
                   ) : (
                     <ul>
                       <li className="myPage_inputBox">
-                        <p className="myPage_inputBox_title">氏名：</p>{user.name}
+                        <p className="myPage_inputBox_title">氏名：</p>{editUser && (  <>{user.name} </> )}
                       </li>
                       <li className="myPage_inputBox">
-                        <p className="myPage_inputBox_title">氏名(カナ)：</p>{user.kana}
+                        <p className="myPage_inputBox_title">氏名(カナ)：</p>{editUser && (  <>{user.kana} </> )}
                       </li>
                       <li className="myPage_inputBox">
-                        <p className="myPage_inputBox_title">電話番号：</p>{user.phone}
+                        <p className="myPage_inputBox_title">電話番号：</p>{editUser && (  <>{user.phone} </> )}
                       </li>
                       <li className="myPage_inputwrapper">
                         <p className="myPage_inputwrapper_title">住所：</p>
                         <ul className="myPage_inputwrapper_data">
                           <li className="myPage_inputBox">
-                            <p className="myPage_inputBox_title">郵便番号：</p>{user.postalCode}
+                            <p className="myPage_inputBox_title">郵便番号：</p>{editUser && (  <>{user.postalCode} </> )}
                           </li>
                           <li className="myPage_inputBox">
-                            <p className="myPage_inputBox_title">住所（番地まで）：</p>{user.address}
+                            <p className="myPage_inputBox_title">住所（番地まで）：</p>{editUser && (  <>{user.address} </> )}
                           </li>
                           <li className="myPage_inputBox">
-                            <p className="myPage_inputBox_title">建物名・部屋番号：</p>{user.building}
+                            <p className="myPage_inputBox_title">建物名・部屋番号：</p>{editUser && (  <>{user.building} </> )}
                           </li>
                         </ul>
                       </li>
@@ -433,7 +445,7 @@ function MyPage() {
                 <div className="contentBox">                
                   <ul>
                     <li className="myPage_inputBox">
-                      <p className="myPage_inputBox_title">メールアドレス：</p>{user.email}
+                      <p className="myPage_inputBox_title">メールアドレス：</p>{editUser && (  <>{user.email} </> )}
                     </li>
                   </ul>
                   <p className="note_message">※セキュリティ上の理由により、登録後のメールアドレス変更には対応しておりません (存在しないメールアドレスでも登録可能な仕様にしたいが、メールアドレスの再設定にメールの送信が必要となるため)。<br />誤って実際に使用しているメールアドレスを登録した場合は、アカウントを削除のうえ、架空のメールアドレスで再登録してください。</p>
@@ -566,10 +578,14 @@ function MyPage() {
                   >
                     ログアウト
                   </button>
-                  <button
-                    className="btn-s"
-                    onClick={() => setIsDeleteModalOpen(true)}
-                  >退会手続き</button>
+                  {isPublicDemoAccount ? (
+                    <></>
+                  ) : 
+                    <button
+                      className="btn-s"
+                      onClick={() => setIsDeleteModalOpen(true)}
+                    >退会手続き</button>
+                  }
                 </div>
               </div>
             </section>

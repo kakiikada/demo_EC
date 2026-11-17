@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import CategoryNav from "../components/CategoryList/CategoryNav";
 import StockStatus from '../components/StockStatus';
+import FavoriteButton from '../components/FavoriteButton';
 import categories from '../data/categories';
 import { getProducts } from '../data/products';
 import type { Product } from '../data/products';
@@ -50,13 +51,12 @@ function Category() {
                     <div className="itemCard_img">
                       <img src={product.image} alt={product.name} />
                       <StockStatus stock={product.stock} />
-                      <button className="favoIcon"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          e.stopPropagation();
-                          handleFavorite();
-                        }}
-                      ></button>
+                      <div className="temCard_img_favoIcon">
+                        <FavoriteButton
+                          productId={product.id}
+                          variant="icon"
+                        />
+                      </div>
                     </div>
                     <div className="itemCard_text">
                       <p>{product.name}</p>

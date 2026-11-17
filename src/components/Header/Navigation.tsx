@@ -13,7 +13,7 @@ export default function Navigation({
   isOpen,
   onClose,
 }: NavigationProps) {
-  const { isLoggedIn, userData, logout } = useAuth();
+  const { isLoggedIn } = useAuth();
 
   const [keyword, setKeyword] = useState('');
   const navigate = useNavigate();
@@ -84,7 +84,6 @@ export default function Navigation({
               {categories.map((category) => (
                 <li
                   key={category.id}
-                  to={`/category/${category.id}`}
                   className={`header-nav_categorySP-${category.id}`}
                 >
                   <Link to={`/category/${category.id}`}>{category.name} <span>/ {category.label}</span></Link>
@@ -101,7 +100,6 @@ export default function Navigation({
           {categories.map((category) => (
             <li
               key={category.id}
-              to={`/category/${category.id}`}
               className={`header-nav_categoryPC-${category.id}`}
             >
               <Link to={`/category/${category.id}`}>{category.name} <span>{category.label}</span></Link>

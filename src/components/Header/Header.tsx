@@ -1,7 +1,7 @@
 
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Header.css";
 import HeaderLogo from "../../assets/logo-b.svg";
 import HeaderLogo_w from "../../assets/logo-w.svg";

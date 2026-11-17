@@ -140,9 +140,6 @@ function Login() {
                       [e.target.name]: e.target.value,
                     });
                   }}
-                  onChange={(e) =>
-                    setLoginData({ ...loginData, email: e.target.value })
-                  }
                  />
               </li>
               <li className="login_input">

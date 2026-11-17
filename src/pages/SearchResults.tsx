@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { getProducts } from '../data/products';
 import type { Product } from '../data/products';
 

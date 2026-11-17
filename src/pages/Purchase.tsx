@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { getProducts } from '../data/products';
 import type { Product } from '../data/products';
 import { useCart } from "../context/CartContext";

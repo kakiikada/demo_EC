@@ -1,6 +1,7 @@
 export interface OrderItem {
   id: string;
   name: string;
+  description: string | null;
   image: string;
   price: number;
   quantity: number;

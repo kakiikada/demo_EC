@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import CategoryNav from "../components/CategoryList/CategoryNav";
 import StockStatus from '../components/StockStatus';
 import FavoriteButton from '../components/FavoriteButton';

@@ -5,7 +5,6 @@ import FavoriteButton from '../components/FavoriteButton';
 import CartButton from "../components/CartButton";
 import { getProducts } from '../data/products';
 import type { Product } from '../data/products';
-import { useCart } from "../context/CartContext";
 
 
 
@@ -31,11 +30,6 @@ function ProductDetail() {
   const currentProduct = products.find(
     (product) => product.id === productId
   );
-  // 購入用トースト
-  const handleAddToCart = () => {
-    addToCart(currentProduct.id, quantity);
-    setShowToast(true);
-  };
   return (
     <div className="wrapper">
       {currentProduct && (

@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Footer.css";
 import FooterLogo from "../../assets/logo-b.svg";
 
